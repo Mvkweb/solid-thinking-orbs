@@ -1,12 +1,20 @@
 {
   "name": "solid-thinking-orbs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SolidJS implementation of the stunning Thinking Orbs loading indicators",
   "author": "Jakub Antalik",
   "contributors": [
     "Mvkweb (SolidJS Port)"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mvkweb/solid-thinking-orbs.git"
+  },
+  "homepage": "https://solid-thinking-orbs.vercel.app",
+  "bugs": {
+    "url": "https://github.com/Mvkweb/solid-thinking-orbs/issues"
+  },
   "type": "module",
   "main": "dist/solid-thinking-orbs.umd.cjs",
   "module": "dist/solid-thinking-orbs.js",
