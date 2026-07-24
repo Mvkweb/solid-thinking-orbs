@@ -1,0 +1,50 @@
+{
+  "name": "solid-thinking-orbs",
+  "version": "0.1.0",
+  "description": "SolidJS implementation of the stunning Thinking Orbs loading indicators",
+  "author": "Jakub Antalik",
+  "contributors": [
+    "Mvkweb (SolidJS Port)"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/solid-thinking-orbs.umd.cjs",
+  "module": "dist/solid-thinking-orbs.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/solid-thinking-orbs.js",
+      "require": "./dist/solid-thinking-orbs.umd.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite --config vite.config.demo.ts",
+    "build:demo": "vite build --config vite.config.demo.ts",
+    "build:lib": "vite build",
+    "build": "bun run build:lib",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.13"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.13.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vite-plugin-dts": "^5.0.3",
+    "vite-plugin-solid": "^2.11.12",
+    "solid-js": "^1.9.13"
+  }
+}
