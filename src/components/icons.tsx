@@ -44,7 +44,7 @@ export function ChevronDownIcon() {
 
 export function SearchIcon18() {
   return (
-    <svg viewBox="0 0 18 18" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg viewBox="0 0 18 18" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor" fill="none" aria-hidden="true" class="size-[18px] shrink-0">
       <circle cx="8" cy="8" r="6" />
       <path d="m16 16-3.5-3.5" />
     </svg>

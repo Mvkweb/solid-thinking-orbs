@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 
 AGENTS.md
+
+# External reference repositories
+solid-timewarp/
+Monocharts/
+amicro/
+@amicro/

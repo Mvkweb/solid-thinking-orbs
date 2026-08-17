@@ -1,0 +1,252 @@
+.todo {
+  --c-text: #0b0d12;
+  --c-muted: #8e8e93;
+  --c-subtle: #a1a1a6;
+  --c-border: rgba(0, 0, 0, 0.08);
+  --c-surface: #ffffff;
+  --c-surface-hover: #f7f7f8;
+  --c-active: #0070f3;
+  --c-success: #10b981;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 440px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: 14px;
+  overflow: hidden;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  .todo {
+    --c-text: #ededed;
+    --c-muted: #737373;
+    --c-subtle: #525252;
+    --c-border: rgba(255, 255, 255, 0.08);
+    --c-surface: #141414;
+    --c-surface-hover: #1c1c1c;
+    --c-active: #38bdf8;
+    --c-success: #34d399;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.todoHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  background: transparent;
+  color: var(--c-text);
+  cursor: pointer;
+  text-align: left;
+  user-select: none;
+  transition: background 0.15s var(--ease);
+}
+.todoHead:hover {
+  background: var(--c-surface-hover);
+}
+
+.todoHeadIcon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--c-muted);
+}
+
+.todoHeadPie {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--c-text);
+}
+
+.todoHeadPieRing {
+  width: 16px;
+  height: 16px;
+  animation: todo-spin 3s linear infinite;
+}
+@keyframes todo-spin {
+  100% { transform: rotate(360deg); }
+}
+
+.todoHeadCheck {
+  color: var(--c-text);
+  animation: todo-pop 0.3s var(--ease);
+}
+@keyframes todo-pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.todoListIcon {
+  color: var(--c-muted);
+}
+
+.todoChevron {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 10px;
+  height: 10px;
+  color: var(--c-muted);
+  opacity: 0;
+  transform: rotate(0deg);
+  transition: transform 0.25s var(--ease), opacity 0.2s;
+}
+.todoHead:hover .todoChevron {
+  opacity: 1;
+}
+.todoHead[aria-expanded="false"] .todoChevron {
+  transform: rotate(-90deg);
+}
+
+.todoTitle {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+
+.todoCount {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--c-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.rollCount {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  height: 18px;
+  line-height: 18px;
+}
+
+.rollDigit {
+  display: inline-block;
+  height: 18px;
+  line-height: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rollInner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.rollInner.on {
+  transform: translateY(-50%);
+}
+
+.todoCollapsible {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.28s var(--ease), opacity 0.2s var(--ease);
+  opacity: 1;
+}
+.todoCollapsible.isCollapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+}
+.todoInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.todoList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0 8px 10px 8px;
+  list-style: none;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--c-text);
+  transition: background 0.15s var(--ease), color 0.2s var(--ease), opacity 0.2s var(--ease);
+}
+.todoItem:hover {
+  background: var(--c-surface-hover);
+}
+
+.todoItem.done {
+  color: var(--c-muted);
+}
+.todoItem.active {
+  color: var(--c-text);
+  font-weight: 500;
+}
+
+.todoIconWrap {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todoIcon {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.24s var(--ease), transform 0.24s var(--ease), color 0.24s var(--ease);
+  color: var(--c-muted);
+}
+.todoIcon.on {
+  opacity: 1;
+  transform: scale(1);
+}
+.todoIcon.strong {
+  color: var(--c-text);
+}
+.todoItem.done .todoIcon {
+  color: var(--c-muted);
+}
+
+.todoLabel {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  letter-spacing: -0.005em;
+  transition: color 0.24s var(--ease);
+}
+
+.todoItem.done .todoLabel {
+  text-decoration: line-through;
+  text-decoration-color: var(--c-subtle);
+  color: var(--c-muted);
+}

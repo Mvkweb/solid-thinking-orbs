@@ -1,7 +1,7 @@
 {
   "name": "solid-thinking-orbs",
-  "version": "0.1.0",
-  "description": "SolidJS implementation of the stunning Thinking Orbs loading indicators",
+  "version": "0.2.0",
+  "description": "Premium SolidJS UI animations: Thinking Orbs, MetalFx WebGL shader rings, BorderBeam dynamic glows, AgentThinking multi-line streams, and WebSearch live indicators",
   "author": "Jakub Antalik",
   "contributors": [
     "Mvkweb (SolidJS Port)"

@@ -10,7 +10,7 @@ export default defineConfig({
     solid(),
     dts({
       insertTypesEntry: true,
-      include: ['src/ThinkingOrb.tsx', 'src/engine', 'src/presets.ts', 'src/theme.ts', 'src/types.ts', 'src/index.ts']
+      include: ['src/**/*']
     })
   ],
   build: {
