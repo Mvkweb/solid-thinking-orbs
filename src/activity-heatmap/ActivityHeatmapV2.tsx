@@ -227,47 +227,40 @@ function toWeeks(contributions: Contribution[]) {
   return weeks;
 }
 
-// 1:1 Demo Repos matching Rare UI showcase
+// Default demo repos
 const DEFAULT_DEMO_REPOS: RepoContribution[] = [
   {
-    name: 'rare-ui',
+    name: 'Option 1',
     count: 842,
-    href: 'https://github.com/swamimalode07/rare-ui',
     logo: (
       <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-        <path d="M12 8.5a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 12 8.5Zm-3.5 3.5a3.5 3.5 0 1 0-3.5-3.5 3.5 3.5 0 0 0 3.5 3.5Zm7 0a3.5 3.5 0 1 0 3.5-3.5 3.5 3.5 0 0 0-3.5 3.5Zm-3.5 3.5a3.5 3.5 0 1 0 3.5 3.5 3.5 3.5 0 0 0-3.5-3.5Zm-3.5 0a3.5 3.5 0 1 0-3.5 3.5 3.5 3.5 0 0 0 3.5-3.5Z" />
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
       </svg>
     ),
   },
   {
-    name: 'solid-thinking-orbs',
+    name: 'Option 2',
     count: 624,
-    href: 'https://github.com/Mvkweb/solid-thinking-orbs',
     logo: (
       <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-        <circle cx="6" cy="6" r="2" />
-        <circle cx="12" cy="6" r="2" />
-        <circle cx="18" cy="6" r="2" />
-        <circle cx="6" cy="12" r="2" />
-        <circle cx="12" cy="12" r="2" />
-        <circle cx="18" cy="12" r="2" />
-        <circle cx="6" cy="18" r="2" />
-        <circle cx="12" cy="18" r="2" />
-        <circle cx="18" cy="18" r="2" />
+        <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2Zm0 2a8 8 0 1 1 0 16A8 8 0 0 1 12 4Zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 12 6Zm0 2a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z" />
       </svg>
     ),
   },
   {
-    name: 'engine',
+    name: 'Option 3',
     count: 397,
-    href: 'https://github.com',
     logo: (
       <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-        <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+        <path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H13L14 2Z" />
       </svg>
     ),
   },
 ];
+
 
 export interface ActivityHeatmapV2Props extends JSX.HTMLAttributes<HTMLDivElement> {
   username?: string;
@@ -540,142 +533,129 @@ export function ActivityHeatmapV2(props: ActivityHeatmapV2Props) {
         </Show>
       </div>
 
-      {/* 1:1 Expandable Footer Panel (`github-activity-panel`) */}
+      {/* Expandable Footer Panel */}
       <Show when={repos().length > 0}>
+        {/* Panel always sits at bottom-3, slides open via max-height */}
         <div
           id="github-activity-panel"
           data-slot="github-activity-panel"
           data-state={open() ? 'open' : 'closed'}
-          class={`absolute inset-x-3 overflow-hidden backdrop-blur-xl border transition-all ${
-            open() ? 'top-3 bottom-3 shadow-2xl z-20' : 'bottom-3 h-[52px] shadow-md z-10'
-          } ${
+          class={`absolute bottom-3 left-3 right-3 overflow-hidden z-10 ${
             resolvedDark()
-              ? 'bg-[#181a1f]/95 border-white/[0.08] text-white'
-              : 'bg-zinc-100/95 border-black/[0.08] text-zinc-900'
+              ? 'bg-[#0e0f11] text-white shadow-2xl shadow-black/70'
+              : 'bg-zinc-100 border border-black/[0.08] text-zinc-900 shadow-lg'
           }`}
           style={{
             'border-radius': '18px',
-            'transition-duration': '620ms',
-            'transition-timing-function': 'cubic-bezier(0.175, 0.885, 0.32, 1.15)',
+            'max-height': open() ? '260px' : '52px',
+            transition: open()
+              ? 'max-height 380ms cubic-bezier(0.32, 0.72, 0, 1)'
+              : 'max-height 260ms cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
-          {/* Header Row */}
+          {/* Always-visible header strip */}
           <div class="flex items-center justify-between gap-3 py-3 px-4 h-[52px]">
             <span class="truncate text-sm font-medium text-inherit">{label()}</span>
 
             <div class="flex items-center gap-3">
-              {/* Collapsed Stacked Avatars */}
-              <Show when={!open()}>
-                <div class="flex items-center -space-x-2 transition-opacity duration-200">
-                  <For each={repos().slice(0, STACK_LIMIT)}>
-                    {(repo) => (
-                      <span
-                        class={`grid size-7 shrink-0 place-items-center overflow-hidden rounded-full text-[11px] font-medium uppercase ring-2 transition-transform hover:scale-110 ${
-                          resolvedDark()
-                            ? 'bg-neutral-800 text-white/90 ring-[#181a1f]'
-                            : 'bg-neutral-200 text-zinc-800 ring-zinc-100'
-                        } [&_img]:size-full [&_img]:object-cover [&_svg]:size-full`}
-                      >
-                        {repo.logo ?? repo.name.charAt(0)}
-                      </span>
-                    )}
-                  </For>
-                </div>
-              </Show>
+              {/* Stacked icons — clone logo nodes so both header & list can show them */}
+              <div
+                class="flex items-center -space-x-2"
+                style={{
+                  opacity: open() ? 0 : 1,
+                  transition: 'opacity 180ms ease',
+                  'pointer-events': open() ? 'none' : 'auto',
+                }}
+              >
+                <For each={repos().slice(0, STACK_LIMIT)}>
+                  {(repo) => (
+                    <span
+                      class={`grid size-7 shrink-0 place-items-center overflow-hidden rounded-full text-[11px] font-medium uppercase ring-2 ${
+                        resolvedDark()
+                          ? 'bg-white/[0.10] text-white/70 ring-[#0e0f11]'
+                          : 'bg-neutral-200 text-zinc-600 ring-zinc-100'
+                      } [&_svg]:size-4`}
+                      ref={(el) => {
+                        // Clone the logo SVG node so it doesn't conflict with the list's instance
+                        const logo = repo.logo;
+                        if (logo instanceof Node) {
+                          el.appendChild(logo.cloneNode(true));
+                        } else if (!logo) {
+                          el.textContent = repo.name.charAt(0);
+                        }
+                      }}
+                    />
+                  )}
+                </For>
+              </div>
 
-              {/* Circular Chevron Button */}
+
+              {/* Chevron button — always clickable */}
               <button
                 type="button"
                 onClick={toggle}
                 aria-expanded={open()}
                 aria-controls="github-activity-panel"
-                aria-label={open() ? 'Hide top repositories' : 'Show top repositories'}
-                class="grid size-7 shrink-0 place-items-center rounded-full bg-transparent cursor-pointer hover:opacity-80 transition-opacity"
+                aria-label={open() ? 'Collapse' : 'Expand'}
+                class="grid size-7 shrink-0 place-items-center bg-transparent cursor-pointer border-0 outline-none focus-visible:outline-none p-0"
               >
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="1.5"
+                  stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   aria-hidden="true"
-                  class={`size-7 text-[#C4C9CC] dark:text-[#3E4346] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    open() ? 'rotate-180' : 'rotate-0'
-                  }`}
+                  class={`size-4 transition-transform duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    resolvedDark() ? 'text-white/30' : 'text-zinc-400'
+                  } ${open() ? 'rotate-180' : 'rotate-0'}`}
                 >
-                  <circle cx="12" cy="12" r="10" />
-                  <path d="m16 10-4 4-4-4" />
+                  <path d="m6 9 6 6 6-6" />
                 </svg>
               </button>
             </div>
           </div>
 
-          {/* Expanded Repository List with Staggered Entrance */}
-          <Show when={open()}>
-            <ul
-              class="px-2 pb-3 flex flex-col gap-1 overflow-y-auto max-h-[calc(100%-56px)] list-none m-0 p-0"
-              style={{
-                animation: reduceMotion()
-                  ? 'none'
-                  : 'rare-row-slide 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2) 0.08s backwards',
-              }}
-            >
-              <For each={repos()}>
-                {(repo) => {
-                  const content = (
-                    <>
-                      <span
-                        class={`grid size-7 shrink-0 place-items-center overflow-hidden rounded-full text-[11px] font-medium uppercase ring-2 ${
-                          resolvedDark()
-                            ? 'bg-neutral-800 text-white/90 ring-[#181a1f]'
-                            : 'bg-neutral-200 text-zinc-800 ring-zinc-100'
-                        } [&_img]:size-full [&_img]:object-cover [&_svg]:size-full`}
-                      >
-                        {repo.logo ?? repo.name.charAt(0)}
-                      </span>
-                      <span class="flex-1 truncate text-sm font-medium text-inherit">
-                        {repo.name}
-                      </span>
-                      <span class="text-sm tabular-nums text-zinc-400">
-                        {repo.count}
-                      </span>
-                    </>
-                  );
-
-                  return (
-                    <li>
-                      <Show
-                        when={repo.href}
-                        fallback={
-                          <div class="flex items-center gap-3 rounded-xl mx-2 px-2 py-2 transition-colors hover:bg-foreground/5">
-                            {content}
-                          </div>
-                        }
-                      >
-                        <a
-                          href={repo.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          class={`flex items-center gap-3 rounded-xl mx-2 px-2 py-2 transition-colors no-underline ${
-                            resolvedDark()
-                              ? 'hover:bg-white/10 text-white'
-                              : 'hover:bg-black/5 text-zinc-900'
-                          }`}
-                        >
-                          {content}
-                        </a>
-                      </Show>
-                    </li>
-                  );
-                }}
-              </For>
-            </ul>
-          </Show>
+          {/* Repo list — always in DOM, revealed by max-height growth */}
+          <ul class="list-none m-0 px-2 pb-3 flex flex-col gap-0.5">
+            <For each={repos()}>
+              {(repo) => (
+                <li
+                  class={`flex items-center gap-3 rounded-xl mx-0 px-3 py-2.5 cursor-pointer transition-colors duration-150 ${
+                    resolvedDark()
+                      ? 'hover:bg-white/[0.06] active:bg-white/[0.04]'
+                      : 'hover:bg-black/[0.05] active:bg-black/[0.03]'
+                  }`}
+                  onClick={() => {
+                    if (repo.href) window.open(repo.href, '_blank', 'noreferrer');
+                  }}
+                  role={repo.href ? 'link' : 'button'}
+                  tabIndex={open() ? 0 : -1}
+                >
+                  <span
+                    class={`grid size-7 shrink-0 place-items-center overflow-hidden rounded-full text-[11px] font-medium uppercase ring-2 ${
+                      resolvedDark()
+                        ? 'bg-white/[0.07] text-white/90 ring-[#0e0f11]'
+                        : 'bg-neutral-200 text-zinc-800 ring-zinc-100'
+                    } [&_img]:size-full [&_img]:object-cover [&_svg]:size-full`}
+                  >
+                    {repo.logo ?? repo.name.charAt(0)}
+                  </span>
+                  <span class="flex-1 truncate text-sm font-medium text-inherit">
+                    {repo.name}
+                  </span>
+                  <span class={`text-sm tabular-nums ${resolvedDark() ? 'text-white/30' : 'text-zinc-400'}`}>
+                    {repo.count}
+                  </span>
+                </li>
+              )}
+            </For>
+          </ul>
         </div>
       </Show>
 
-      {/* Embedded 1:1 Rare UI CSS Keyframe Animations */}
+      {/* Keyframe Animations */}
       <style>{`
         @keyframes rare-cell-fade {
           from { opacity: 0; transform: scale(0.4); }
@@ -689,10 +669,6 @@ export function ActivityHeatmapV2(props: ActivityHeatmapV2Props) {
           from { opacity: 0; filter: blur(6px); }
           to { opacity: 1; filter: blur(0px); }
         }
-        @keyframes rare-row-slide {
-          from { opacity: 0; transform: translate(16px, 16px); }
-          to { opacity: 1; transform: translate(0px, 0px); }
-        }
       `}</style>
     </div>
   );
@@ -700,3 +676,4 @@ export function ActivityHeatmapV2(props: ActivityHeatmapV2Props) {
 
 export { ActivityHeatmapV2 as GitHubActivity };
 export default ActivityHeatmapV2;
+

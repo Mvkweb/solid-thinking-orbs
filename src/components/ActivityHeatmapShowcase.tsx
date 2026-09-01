@@ -522,16 +522,19 @@ export function ActivityHeatmapShowcase() {
                       year={2025}
                       seed={variant.seed}
                       showTooltip={showPopup()}
-                      weeks={20}
+                      weeks={26}
                     />
                   </div>
                 )}
               </For>
             </div>
+
           ) : viewMode() === 'wide' ? (
             <div class="w-full max-w-[720px] flex justify-center">
               <ActivityHeatmapV2
                 accentColor={selectedFamilyId()}
+                customDarkShades={currentFamily().variants[0].darkShades}
+                customLightShades={currentFamily().variants[0].lightShades}
                 totalContributions={1863}
                 year={2025}
                 weeks={32}
@@ -542,6 +545,8 @@ export function ActivityHeatmapShowcase() {
             <div class="w-full max-w-[560px] flex justify-center">
               <ActivityHeatmapV2
                 accentColor={selectedFamilyId()}
+                customDarkShades={currentFamily().variants[0].darkShades}
+                customLightShades={currentFamily().variants[0].lightShades}
                 totalContributions={1863}
                 year={2025}
                 weeks={26}
@@ -550,6 +555,7 @@ export function ActivityHeatmapShowcase() {
             </div>
           )}
         </Show>
+
       </div>
 
       {/* Code Snippet */}

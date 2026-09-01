@@ -1,6 +1,6 @@
 {
   "name": "solid-thinking-orbs",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Premium SolidJS UI animations: Thinking Orbs, Liquid Gooey fluid physics, MetalFx WebGL shader rings, BorderBeam dynamic glows, Activity Heatmaps, AgentThinking streams, and WebSearch live indicators",
   "author": "Jakub Antalik",
   "contributors": [
