@@ -19,6 +19,11 @@ const LABELS: Record<string, string> = {
   conjuring: 'Conjuring…',
   conjuring_static: 'Conjuring static…',
   assembling: 'Assembling…',
+  blooming: 'Blooming…',
+  glacio: 'Blooming…',
+  flower: 'Blooming…',
+  sandglass: 'Blooming…',
+  sand_orbs: 'Blooming…',
 };
 
 export function ThinkingOrb(props: ThinkingOrbProps) {

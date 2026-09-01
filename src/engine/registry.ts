@@ -11,6 +11,7 @@ import { drawCube } from './cube';
 import { drawTesseract } from './tesseract';
 import { drawMerkaba } from './merkaba';
 import { drawAssembling } from './assembling';
+import { drawBlooming } from './blooming';
 
 export const MODE_DRAWS: Record<ModeKey, ModeDraw> = {
   orbits: drawOrbits,
@@ -22,5 +23,7 @@ export const MODE_DRAWS: Record<ModeKey, ModeDraw> = {
   cube: drawCube,
   tesseract: drawTesseract,
   merkaba: drawMerkaba,
-  assembling: drawAssembling
+  assembling: drawAssembling,
+  blooming: drawBlooming,
+  sandglass: drawBlooming
 };

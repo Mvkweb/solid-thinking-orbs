@@ -7,7 +7,7 @@ import type { ModeOpts } from './engine/profiles';
 import { BASE_PROFILES, scaleCounts, scaleRadii } from './engine/profiles';
 import type { OrbSize, OrbState } from './types';
 
-export type ModeKey = 'orbits' | 'globe' | 'rubik' | 'wave' | 'ribbon' | 'morph' | 'cube' | 'tesseract' | 'merkaba' | 'assembling';
+export type ModeKey = 'orbits' | 'globe' | 'rubik' | 'wave' | 'ribbon' | 'morph' | 'cube' | 'tesseract' | 'merkaba' | 'assembling' | 'blooming' | 'sandglass';
 
 export const STATE_TO_MODE: Record<OrbState, ModeKey> = {
   working: 'orbits',
@@ -22,7 +22,12 @@ export const STATE_TO_MODE: Record<OrbState, ModeKey> = {
   hypercube: 'tesseract',
   conjuring: 'merkaba',
   conjuring_static: 'merkaba',
-  assembling: 'assembling'
+  assembling: 'assembling',
+  blooming: 'blooming',
+  glacio: 'blooming',
+  flower: 'blooming',
+  sandglass: 'blooming',
+  sand_orbs: 'blooming'
 };
 
 interface Preset {
@@ -85,6 +90,26 @@ const PRESETS: Record<OrbState, Record<OrbSize, Preset>> = {
   assembling: {
     64: { speed: 1.6, count: 1.0, size: 0.9, extra: { spin: 2.0, ghostN: 16 } },
     20: { speed: 2.0, count: 0.5, size: 1.3, extra: { spin: 2.0, ghostN: 8 } }
+  },
+  blooming: {
+    64: { speed: 0.9, count: 1.0, size: 1.0, extra: { spin: 0.55 } },
+    20: { speed: 1.0, count: 0.45, size: 1.35, extra: { spin: 0.55 } }
+  },
+  glacio: {
+    64: { speed: 0.9, count: 1.0, size: 1.0, extra: { spin: 0.55 } },
+    20: { speed: 1.0, count: 0.45, size: 1.35, extra: { spin: 0.55 } }
+  },
+  flower: {
+    64: { speed: 0.9, count: 1.0, size: 1.0, extra: { spin: 0.55 } },
+    20: { speed: 1.0, count: 0.45, size: 1.35, extra: { spin: 0.55 } }
+  },
+  sandglass: {
+    64: { speed: 0.9, count: 1.0, size: 1.0, extra: { spin: 0.55 } },
+    20: { speed: 1.0, count: 0.45, size: 1.35, extra: { spin: 0.55 } }
+  },
+  sand_orbs: {
+    64: { speed: 0.9, count: 1.0, size: 1.0, extra: { spin: 0.55 } },
+    20: { speed: 1.0, count: 0.45, size: 1.35, extra: { spin: 0.55 } }
   }
 };
 

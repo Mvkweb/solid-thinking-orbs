@@ -117,8 +117,8 @@ export function BorderBeamShowcase() {
         </div>
       </div>
 
-      <div class="relative w-full min-h-[304px] rounded-[10px] bg-(--surface) flex flex-col items-center justify-center p-12 gap-6 max-sm:p-6">
-        <div class="relative w-full max-w-[400px] h-[190px] rounded-[16px] bg-[#121212] border border-[rgba(255,255,255,0.08)] flex items-center justify-center">
+      <div class="relative w-full min-h-[380px] rounded-[16px] bg-(--surface) flex flex-col items-center justify-center p-12 gap-6 max-sm:p-6 border border-white/[0.04]">
+        <div class="relative w-full max-w-[460px] h-[210px] rounded-[16px] bg-[#121212] border border-[rgba(255,255,255,0.08)] flex items-center justify-center">
           <BorderBeam
             size={size()}
             colorVariant={colorVariant()}

@@ -6,7 +6,7 @@ import { CopyButton } from './CopyButton';
 import { PlayPauseToggle } from './PlayPauseToggle';
 
 const V1_STATES: OrbState[] = ['working', 'searching', 'solving', 'listening', 'composing', 'shaping'];
-const V2_STATES: OrbState[] = ['syncing', 'evolving', 'building', 'hypercube', 'conjuring', 'conjuring_static', 'assembling'];
+const V2_STATES: OrbState[] = ['syncing', 'evolving', 'building', 'hypercube', 'conjuring', 'conjuring_static', 'assembling', 'blooming'];
 const ALL_STATES: OrbState[] = [...V1_STATES, ...V2_STATES];
 
 const STATE_LABELS: Record<OrbState, string> = {
@@ -23,6 +23,11 @@ const STATE_LABELS: Record<OrbState, string> = {
   conjuring: 'Conjuring',
   conjuring_static: 'Conjuring Static',
   assembling: 'Assembling',
+  blooming: 'Blooming',
+  glacio: 'Blooming',
+  flower: 'Blooming',
+  sandglass: 'Blooming',
+  sand_orbs: 'Blooming',
 };
 
 const SIZES: OrbSize[] = [64, 20];

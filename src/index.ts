@@ -38,3 +38,36 @@ export type { WebSearchProps, WebSearchSite } from './web-search';
 export { TodoList } from './todo-list';
 export type { TodoListProps } from './todo-list';
 
+// Activity Heatmap Components (V1 & V2)
+export { ActivityHeatmap, ActivityHeatmapV2, GitHubActivity } from './activity-heatmap';
+export type {
+  ActivityHeatmapProps,
+  ActivityHeatmapV2Props,
+  RepoContribution,
+  TopContributionProject,
+  Contribution,
+  ContributionLevel,
+  HeatmapAccent,
+} from './activity-heatmap';
+
+// Liquid Gooey Effect Components
+export { Liquid } from './liquid-gooey';
+export type {
+  LiquidProps,
+  LiquidEffect,
+  LiquidItemProps,
+  MorphTuning,
+  MoveTuning,
+  DissolveOptions,
+  EvolveOptions,
+  MoveOptions,
+  SpringConfig,
+  Transition,
+  TransitionPreset,
+  CornerRadii,
+} from './liquid-gooey';
+
+
+
+
+

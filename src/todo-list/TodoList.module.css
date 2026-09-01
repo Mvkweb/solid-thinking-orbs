@@ -95,24 +95,6 @@
   color: var(--c-muted);
 }
 
-.todoChevron {
-  position: absolute;
-  right: -2px;
-  bottom: -2px;
-  width: 10px;
-  height: 10px;
-  color: var(--c-muted);
-  opacity: 0;
-  transform: rotate(0deg);
-  transition: transform 0.25s var(--ease), opacity 0.2s;
-}
-.todoHead:hover .todoChevron {
-  opacity: 1;
-}
-.todoHead[aria-expanded="false"] .todoChevron {
-  transform: rotate(-90deg);
-}
-
 .todoTitle {
   flex: 1;
   font-size: 13px;

@@ -29,7 +29,12 @@ export type OrbState =
   | 'hypercube'
   | 'conjuring'
   | 'conjuring_static'
-  | 'assembling';
+  | 'assembling'
+  | 'blooming'
+  | 'glacio'
+  | 'flower'
+  | 'sandglass'
+  | 'sand_orbs';
 
 /**
  * Rendered size in CSS pixels. Exactly two tuned presets ship:

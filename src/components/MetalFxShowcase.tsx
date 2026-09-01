@@ -120,7 +120,7 @@ export function MetalFxShowcase() {
         </div>
       </div>
 
-      <div class="relative w-full min-h-[304px] rounded-[10px] bg-(--surface) flex flex-col items-center justify-center p-12 gap-6 max-sm:p-6">
+      <div class="relative w-full min-h-[380px] rounded-[16px] bg-(--surface) flex flex-col items-center justify-center p-12 gap-6 max-sm:p-6 border border-white/[0.04]">
         <div class="flex items-center gap-3">
           <label ref={neighborRef} class="relative flex items-center gap-1.5 w-[180px] h-10 rounded-full py-2.5 pr-2 pl-3 bg-[#1d1d1d] border border-[rgba(44,47,54,0.52)] shadow-[inset_0_0_50px_0_rgba(255,255,255,0.02)] text-[#f8f8f8] text-sm font-medium cursor-text [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:stroke-[#8B8B8B] [&_svg]:fill-none">
             <SearchIcon18 />

@@ -79,7 +79,7 @@ export function Installation() {
         <div class="relative flex items-center bg-(--hero-surface) border border-[rgba(255,255,255,0.06)] p-1 rounded-lg">
           {/* Animated Sliding Pill Highlight */}
           <div
-            class="absolute top-1 bottom-1 bg-(--icon-btn-hover) rounded-md transition-transform duration-300 ease-[cubic-bezier(0.175,0.885,0.32,1.2)] shadow-sm pointer-events-none"
+            class="absolute top-1 bottom-1 left-1 bg-(--icon-btn-hover) rounded-md transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-sm pointer-events-none"
             style={{
               width: `calc(${100 / OPTIONS.length}% - 2px)`,
               transform: `translateX(${selectedIndex() * 100}%)`,

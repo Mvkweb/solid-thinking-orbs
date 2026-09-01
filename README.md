@@ -34,7 +34,7 @@ import { ThinkingOrb } from 'solid-thinking-orbs';
 
 ### States
 - **Original V1**: `working`, `searching`, `solving`, `listening`, `composing`, `shaping`
-- **Extended V2**: `syncing`, `evolving`, `building`, `hypercube`, `conjuring`, `conjuring_static`, `assembling`
+- **Extended V2**: `syncing`, `evolving`, `building`, `hypercube`, `conjuring`, `conjuring_static`, `assembling`, `blooming`
 
 ---
 
@@ -127,7 +127,6 @@ Live search radar component displaying real-time URL discovery and web queries f
 ```tsx
 import { WebSearch } from 'solid-thinking-orbs';
 
-// Web Search Component
 <WebSearch
   query="JWT security best practices and authorization flaws"
   loop={true}
@@ -157,6 +156,76 @@ import { TodoList } from 'solid-thinking-orbs';
 
 ---
 
+## 7. Activity Heatmap (`V1 & V2`)
+
+Interactive GitHub activity cards with staggered animations, tooltips, and expandable repository breakdown drawers.
+
+### V2: Rare UI GitHub Activity Card
+1:1 port of Rare UI's expandable activity heatmap with month labels, staggered column entrance, and spring-animated breakdown list.
+
+```tsx
+import { ActivityHeatmapV2, type RepoContribution } from 'solid-thinking-orbs';
+
+const repos: RepoContribution[] = [
+  { name: 'solid-thinking-orbs', count: 320, color: '#38bdf8' },
+  { name: 'antigravity-core', count: 184, color: '#a855f7' },
+  { name: 'flow-engine', count: 76, color: '#34d399' },
+];
+
+<ActivityHeatmapV2
+  username="Mvkweb"
+  totalContributions={580}
+  topRepos={repos}
+  weeks={20}
+/>
+```
+
+### V1: Matrix Grid Heatmap
+Classic activity heatmaps with rounded cell grids and palette presets.
+
+```tsx
+import { ActivityHeatmap } from 'solid-thinking-orbs';
+
+<ActivityHeatmap accentColor="green" weeks={20} />
+<ActivityHeatmap accentColor="blue" weeks={20} />
+<ActivityHeatmap accentColor="purple" weeks={20} />
+```
+
+---
+
+## 8. Liquid Gooey Physics
+
+A SolidJS port of Jakub Antalík's `liquid-gooey` library. Renders a hardware-accelerated SVG silhouette layer with real `box-shadow` filter pipelines behind crisp interactive UI content.
+
+```tsx
+import { Liquid } from 'solid-thinking-orbs';
+
+<Liquid blur={6} contrast={18} fill="#ffffff" shadow="0 2px 8px rgba(0,0,0,0.1)">
+  {/* Satellite buttons that split like fluid droplets */}
+  <Liquid.Item x={open() ? -54 : 0} y={open() ? -34 : 0} transition={{ duration: 550, ease: 'bouncy' }}>
+    <button class="pm-btn pm-sat">File</button>
+  </Liquid.Item>
+  <Liquid.Item x={0} y={open() ? -64 : 0} transition={{ duration: 550, ease: 'bouncy' }} delay={40}>
+    <button class="pm-btn pm-sat">Image</button>
+  </Liquid.Item>
+  <Liquid.Item x={open() ? 54 : 0} y={open() ? -34 : 0} transition={{ duration: 550, ease: 'bouncy' }} delay={80}>
+    <button class="pm-btn pm-sat">Folder</button>
+  </Liquid.Item>
+
+  {/* Main Trigger Button */}
+  <Liquid.Item>
+    <button class="pm-btn pm-main" onClick={toggle}>+</button>
+  </Liquid.Item>
+</Liquid>
+```
+
+### Effects
+- **`morph`**: Touching pieces merge with organic fluid bridges and cross-blur content transitions (`shape`, `bounce`, `speed`).
+- **`move`**: Liquid rubber trailing moving elements with velocity stretch and trailing droplet tails (`springiness`, `wobble`, `stretch`, `trail`).
+- **`dissolve`**: Contact melt with turbulence displacement, two-liquid mixing erosion, and directional flow gravity.
+
+---
+
 ## Development
 
 ```bash
@@ -170,6 +239,8 @@ bun run typecheck    # Validate TypeScript types
 
 ## Credits & License
 
-- SolidJS port, extended states, and integrated components by **Mvkweb**.
-- Original Thinking Orbs concept and design by **Jakub Antalík**.
+- SolidJS port, extended V2 states, and additional UI modules by **Mvkweb**.
+- Original Thinking Orbs concept & Liquid Gooey physics by **Jakub Antalík**.
+- GitHub Activity V2 design inspired by **Rare UI**.
 - Licensed under the [MIT License](LICENSE).
+

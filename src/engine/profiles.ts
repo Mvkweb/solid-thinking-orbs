@@ -143,5 +143,19 @@ export const BASE_PROFILES: Record<string, ModeOpts> = {
     rDepth: 1.7,
     rsPow: 0.6,
     rMin: 0.3
+  },
+  blooming: {
+    ghostN: 14,
+    rBase: 1.1,
+    rDepth: 1.6,
+    rsPow: 0.6,
+    rMin: 0.3
+  },
+  sandglass: {
+    ghostN: 14,
+    rBase: 1.1,
+    rDepth: 1.6,
+    rsPow: 0.6,
+    rMin: 0.3
   }
 };

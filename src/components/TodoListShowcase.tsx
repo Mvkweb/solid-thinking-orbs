@@ -1,4 +1,4 @@
-import { createSignal, createMemo } from 'solid-js';
+import { createSignal, createMemo, Show } from 'solid-js';
 import { TodoList } from '../todo-list';
 import { CopyButton } from './CopyButton';
 import { cn } from '../lib/utils';
@@ -24,7 +24,12 @@ function TabBtn(props: { active: boolean; children: any; onClick: () => void; cl
 }
 
 export function TodoListShowcase() {
-  const [key, setKey] = createSignal(0);
+  const [key, setKey] = createSignal(1);
+
+  const replay = () => {
+    setKey(0);
+    requestAnimationFrame(() => setKey(Date.now()));
+  };
 
   const snippet = createMemo(() => {
     return `import { TodoList } from 'solid-thinking-orbs';\n\n<TodoList />`;
@@ -37,16 +42,18 @@ export function TodoListShowcase() {
       <div class="flex flex-col gap-4 bg-(--panel-bg) rounded-[10px] p-4 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <div class="flex items-center justify-between gap-4 max-sm:flex-col max-sm:items-start">
           <div class="flex items-center gap-2 flex-wrap">
-            <TabBtn active={false} onClick={() => setKey((k) => k + 1)}>
+            <TabBtn active={false} onClick={replay}>
               ↻ Restart Tasks
             </TabBtn>
           </div>
         </div>
       </div>
 
-      <div class="relative w-full min-h-[340px] rounded-[10px] bg-(--surface) flex flex-col items-center justify-center p-12 gap-6 max-sm:p-6">
-        <div class="relative w-full max-w-[420px] flex items-center justify-center">
-          <TodoList key={key()} />
+      <div class="relative w-full min-h-[380px] rounded-[16px] bg-(--surface) flex flex-col items-center justify-center p-12 gap-6 max-sm:p-6 border border-white/[0.04]">
+        <div class="relative w-full max-w-[480px] flex items-center justify-center">
+          <Show when={key() > 0} keyed>
+            {(_k) => <TodoList />}
+          </Show>
         </div>
       </div>
 

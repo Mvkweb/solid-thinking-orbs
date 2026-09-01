@@ -24,7 +24,8 @@ const V2_HERO_PILLS: Array<{ state: OrbState; label: string }> = [
   { state: 'hypercube', label: 'Structuring….' },
   { state: 'conjuring', label: 'Conjuring….' },
   { state: 'conjuring_static', label: 'Conjuring static….' },
-  { state: 'assembling', label: 'Assembling….' }
+  { state: 'assembling', label: 'Assembling….' },
+  { state: 'blooming', label: 'Blooming….' }
 ];
 const V2_CHIP_STATES: OrbState[] = [];
 
@@ -48,26 +49,26 @@ export function Examples(props: {
         <div class="relative flex items-center bg-(--hero-surface) border border-[rgba(255,255,255,0.05)] p-1 rounded-full w-[260px] h-[44px]">
           {/* Animated slider highlight */}
           <div 
-            class={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-(--icon-btn-hover) rounded-full transition-transform duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,1.2)] ${version() === 'v1' ? 'translate-x-0' : 'translate-x-full'}`}
+            class={`absolute top-1 bottom-1 left-1 w-[calc(50%-4px)] bg-(--icon-btn-hover) rounded-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${version() === 'v1' ? 'translate-x-0' : 'translate-x-full'}`}
           />
           <button 
             onClick={() => setVersion('v1')}
-            class={`relative flex-1 h-full flex items-center justify-center text-[13px] font-medium z-10 transition-colors duration-300 ${version() === 'v1' ? 'text-(--title-color)' : 'text-(--subtitle-color)'}`}
+            class={`relative flex-1 h-full flex items-center justify-center text-[13px] font-medium z-10 transition-colors duration-200 cursor-pointer ${version() === 'v1' ? 'text-(--title-color)' : 'text-(--subtitle-color)'}`}
           >
             V1 Original
           </button>
           <button 
             onClick={() => setVersion('v2')}
-            class={`relative flex-1 h-full flex items-center justify-center text-[13px] font-medium z-10 transition-colors duration-300 ${version() === 'v2' ? 'text-(--title-color)' : 'text-(--subtitle-color)'}`}
+            class={`relative flex-1 h-full flex items-center justify-center text-[13px] font-medium z-10 transition-colors duration-200 cursor-pointer ${version() === 'v2' ? 'text-(--title-color)' : 'text-(--subtitle-color)'}`}
           >
             V2 Custom
           </button>
         </div>
         <div class="relative w-full h-6 mt-3">
-          <p class={`absolute inset-0 flex items-center justify-center text-[13px] text-(--subtitle-color) font-normal transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,1.2)] ${version() === 'v1' ? 'translate-y-0 opacity-60' : 'translate-y-2 opacity-0 pointer-events-none'}`}>
+          <p class={`absolute inset-0 flex items-center justify-center text-[13px] text-(--subtitle-color) font-normal transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${version() === 'v1' ? 'translate-y-0 opacity-60' : 'translate-y-1.5 opacity-0 pointer-events-none'}`}>
             Original hand-tuned engine states
           </p>
-          <p class={`absolute inset-0 flex items-center justify-center text-[13px] text-(--subtitle-color) font-normal transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,1.2)] ${version() === 'v2' ? 'translate-y-0 opacity-60' : '-translate-y-2 opacity-0 pointer-events-none'}`}>
+          <p class={`absolute inset-0 flex items-center justify-center text-[13px] text-(--subtitle-color) font-normal transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${version() === 'v2' ? 'translate-y-0 opacity-60' : '-translate-y-1.5 opacity-0 pointer-events-none'}`}>
             Custom expanded engine states
           </p>
         </div>

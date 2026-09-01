@@ -12,6 +12,8 @@ import { BorderBeamShowcase } from './components/BorderBeamShowcase';
 import { AgentThinkingShowcase } from './components/AgentThinkingShowcase';
 import { WebSearchShowcase } from './components/WebSearchShowcase';
 import { TodoListShowcase } from './components/TodoListShowcase';
+import { ActivityHeatmapShowcase } from './components/ActivityHeatmapShowcase';
+import { GooeyShowcase } from './components/GooeyShowcase';
 
 const USAGE_SNIPPET = `import { ThinkingOrb } from 'solid-thinking-orbs';\n\n<ThinkingOrb state="listening" size={64} />`;
 
@@ -24,14 +26,20 @@ export function App() {
   const [smallAll, setSmallAll] = createSignal(false);
 
   return (
-    <main class="flex flex-col items-center max-w-[883px] mx-auto w-full px-6 pb-16 max-sm:px-4 max-sm:pb-12">
-      <Header
-        theme={theme()}
-        onToggleTheme={toggleTheme}
-      />
+    <div class="relative w-full min-h-screen">
+      {/* Subtle Ambient Radial Glow */}
+      <div class="pointer-events-none fixed inset-0 flex justify-center z-0 overflow-hidden" aria-hidden="true">
+        <div class="w-[900px] h-[360px] bg-gradient-to-b from-blue-500/[0.04] via-indigo-500/[0.02] to-transparent blur-[140px] rounded-full -mt-20" />
+      </div>
 
-      {/* Component Showcase Switcher Tabs */}
-      <ShowcaseTabs activeTab={activeTab()} onTabChange={setActiveTab} />
+      <main class="relative z-10 flex flex-col items-center max-w-[1040px] mx-auto w-full px-6 pb-20 max-sm:px-4 max-sm:pb-12">
+        <Header
+          theme={theme()}
+          onToggleTheme={toggleTheme}
+        />
+
+        {/* Component Showcase Switcher Tabs */}
+        <ShowcaseTabs activeTab={activeTab()} onTabChange={setActiveTab} />
 
       <Switch>
         <Match when={activeTab() === 'orbs'}>
@@ -74,9 +82,20 @@ export function App() {
           <Installation />
           <TodoListShowcase />
         </Match>
+
+        <Match when={activeTab() === 'heatmaps'}>
+          <Installation />
+          <ActivityHeatmapShowcase />
+        </Match>
+
+        <Match when={activeTab() === 'gooey'}>
+          <Installation />
+          <GooeyShowcase />
+        </Match>
       </Switch>
 
       <Footer />
     </main>
-  );
+  </div>
+);
 }
