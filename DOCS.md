@@ -1,189 +1,440 @@
 # Documentation
 
-Detailed reference for integrating, styling, and extending `solid-thinking-orbs`.
+Comprehensive API and integration reference for `solid-thinking-orbs`.
 
-## Props
+---
 
-The `<ThinkingOrb />` component accepts the following props:
+## Table of Contents
+
+1. [Installation](#installation)
+2. [ThinkingOrb](#1-thinkingorb)
+3. [Liquid Gooey Physics (`<Liquid>` & `<Liquid.Item>`)](#2-liquid-gooey-physics)
+4. [Metal FX (`<MetalFx>`)](#3-metal-fx)
+5. [Border Beam (`<BorderBeam>`)](#4-border-beam)
+6. [Activity Heatmap (`<ActivityHeatmap>` & `<ActivityHeatmapV2>`)](#5-activity-heatmap)
+7. [Agent Thinking (`<AgentThinking>`)](#6-agent-thinking)
+8. [Web Search (`<WebSearch>`)](#7-web-search)
+9. [To-do List (`<TodoList>`)](#8-to-do-list)
+10. [Theme Resolution](#9-theme-resolution)
+11. [TypeScript Exports Reference](#10-typescript-exports-reference)
+
+---
+
+## Installation
+
+```bash
+npm install solid-thinking-orbs
+# or
+pnpm add solid-thinking-orbs
+# or
+bun add solid-thinking-orbs
+```
+
+---
+
+## 1. ThinkingOrb
+
+Dotted thought-orb loading indicators for AI & agent UIs rendered on high-performance 2D canvas with automatic dark/light theme adaptation.
+
+```tsx
+import { ThinkingOrb } from 'solid-thinking-orbs';
+
+// Avatar / Hero scale
+<ThinkingOrb state="searching" size={64} />
+
+// Inline text scale
+<ThinkingOrb state="listening" size={20} />
+```
+
+### Props
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `state` | `OrbState` | `'working'` | Animation verb state (13 available states). |
+| `state` | `OrbState` | `'working'` | Animation verb state (18 available states). |
 | `size` | `OrbSize` (`64` \| `20`) | `64` | Tuned size preset in CSS pixels (`64` for avatar, `20` for inline). |
 | `speed` | `number` | `1.0` | Speed multiplier relative to the preset's baked rate. |
 | `paused` | `boolean` | `false` | When `true`, freezes the canvas on the current frame. |
 | `theme` | `'auto'` \| `'dark'` \| `'light'` | `'auto'` | Color mode (light ink on dark backgrounds, dark ink on light). |
-| `aria-label` | `string` | *Per-state fallback* | Accessible label for screen readers (`role="img"`). |
-| `ref` | `(el: HTMLCanvasElement) => void` | `undefined` | Ref callback for direct access to the `<canvas>` DOM element. |
+| `style` | `JSX.CSSProperties \| string` | `undefined` | Custom inline styling. |
+| `ref` | `(el: HTMLCanvasElement) => void` | `undefined` | Ref callback for direct access to `<canvas>`. |
 
 All standard HTML `<canvas>` attributes (`class`, `style`, `onClick`, `onMouseEnter`, `data-*`) pass through natively.
 
-## States
+### Available States
 
-### V1 Original States
-```tsx
-<ThinkingOrb state="working" />    /* particles on tilted orbits */
-<ThinkingOrb state="searching" />  /* a scan meridian sweeps a dotted globe */
-<ThinkingOrb state="solving" />    /* bands scramble, then click back solved */
-<ThinkingOrb state="listening" />  /* a waveform rolls through latitude rings */
-<ThinkingOrb state="composing" />  /* an undulating multi-band sash */
-<ThinkingOrb state="shaping" />    /* dotted outline morphing circle → triangle → square */
-```
+#### Original V1 States
+- `working`: Particles moving along tilted spherical orbits.
+- `searching`: A scan meridian sweeping across a dotted globe.
+- `solving`: Bands scramble in quarter turns, then snap back into alignment.
+- `listening`: A continuous audio waveform rolling through latitude rings.
+- `composing`: An undulating multi-band ribbon sash.
+- `shaping`: A dotted outline morphing between circle, triangle, and square.
 
-### V2 Custom States
-```tsx
-<ThinkingOrb state="syncing" />          /* fast-spinning 3D wireframe cylinder */
-<ThinkingOrb state="evolving" />         /* twisting double-helix ribbon */
-<ThinkingOrb state="building" />         /* 3D dotted wireframe cube tumbling */
-<ThinkingOrb state="hypercube" />        /* filled 3D cubic matrix with undulating surface waves */
-<ThinkingOrb state="conjuring" />        /* 3D logarithmic spiral triangle tumbling in space */
-<ThinkingOrb state="conjuring_static" /> /* static upright 3D spiral triangle with flowing energy */
-<ThinkingOrb state="assembling" />       /* 3D quantum cube whose particles explode outward & snap back */
-```
+#### Extended V2 States
+- `syncing`: Fast-spinning 3D wireframe cylinder.
+- `evolving`: Twisting double-helix ribbon.
+- `building`: 3D dotted wireframe cube tumbling in space.
+- `hypercube`: Filled 3D cubic matrix with undulating surface waves.
+- `conjuring`: Logarithmic 3D spiral triangle tumbling in space.
+- `conjuring_static`: Upright 3D spiral triangle with flowing energy pulses.
+- `assembling`: 3D quantum cube whose particles explode outward and snap back.
+- `blooming`: Concentric geometric petals expanding and pulsing.
+- `glacio`: Crystalline icy geometry refractive particles.
+- `flower`: 3D organic flower petals undulating in harmonic motion.
+- `sandglass`: Hourglass particle flow cascading between dual chambers.
+- `sand_orbs`: Dual orbiting sand vortex clusters.
 
-## Styling & Coloring
-
-`ThinkingOrb` renders monochrome dots by default. Custom colors, glows, and gradients can be applied using CSS.
-
-### CSS Filters
-Use CSS `hue-rotate`, `saturate`, and `brightness` to tint dots:
+### Styling & CSS Filters
 
 ```tsx
-/* Blue Tint */
+/* Tint with CSS filters */
 <ThinkingOrb
   state="hypercube"
   style={{ filter: 'hue-rotate(190deg) saturate(6) brightness(1.2)' }}
 />
 
-/* Pink Glow */
+/* Ambient Drop Shadow Glow */
 <ThinkingOrb
   state="conjuring"
-  style={{ filter: 'hue-rotate(290deg) saturate(8) drop-shadow(0 0 10px #ec4899)' }}
-/>
-```
-
-### Drop Shadow Glow
-Add an ambient shadow aura behind the particles:
-
-```tsx
-<ThinkingOrb
-  state="assembling"
   style={{ filter: 'drop-shadow(0 0 12px rgba(59, 130, 246, 0.6))' }}
 />
 ```
 
-### Vertical Gradients
-To create vertical color transitions, wrap the orb in a gradient container:
+---
+
+## 2. Liquid Gooey Physics
+
+Hardware-accelerated fluid UI physics and SVG silhouette generation. Enables fluid droplet splitting, trailing velocity stretch, and contact melting.
 
 ```tsx
-<div class="relative w-[64px] h-[64px] bg-gradient-to-t from-cyan-400 via-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-  <ThinkingOrb
-    state="conjuring_static"
-    size={64}
-    style={{ 'mix-blend-mode': 'screen' }}
-  />
-</div>
+import { Liquid } from 'solid-thinking-orbs';
+
+<Liquid blur={6} contrast={18} fill="#ffffff" shadow="0 2px 8px rgba(0,0,0,0.1)">
+  <Liquid.Item x={open() ? -54 : 0} y={open() ? -34 : 0} transition={{ duration: 550, ease: 'bouncy' }}>
+    <button class="pm-btn pm-sat">File</button>
+  </Liquid.Item>
+  <Liquid.Item x={0} y={open() ? -64 : 0} transition={{ duration: 550, ease: 'bouncy' }} delay={40}>
+    <button class="pm-btn pm-sat">Image</button>
+  </Liquid.Item>
+  <Liquid.Item x={open() ? 54 : 0} y={open() ? -34 : 0} transition={{ duration: 550, ease: 'bouncy' }} delay={80}>
+    <button class="pm-btn pm-sat">Folder</button>
+  </Liquid.Item>
+  <Liquid.Item>
+    <button class="pm-btn pm-main" onClick={toggle}>+</button>
+  </Liquid.Item>
+</Liquid>
 ```
 
-## Theme Resolution
+### `<Liquid>` Props
 
-When `theme="auto"` is set, the theme mode resolves automatically in three steps:
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `blur` | `number` | `6` | Goo blur sigma in px — controls how far apart pieces start bridging. |
+| `contrast` | `number` | `18` | Alpha-contrast slope — controls edge sharpness of the liquid surface. |
+| `fill` | `string` | `'#fff'` | Fill color of the liquid surface (CSS color or `var(...)`). |
+| `shadow` | `string` | `undefined` | Merged silhouette shadow (`box-shadow` or `drop-shadow` syntax). |
+| `filterPadding` | `number` | `24` | Extra filter slack in px for traveling blobs. |
 
-1. Checks ancestor elements for `data-theme="dark|light"` attribute or `dark`/`light` class (watched via `MutationObserver`).
-2. Subscribes to system OS preferences (`prefers-color-scheme: dark`).
-3. SSR-safe — paints only on the client after theme resolution.
+### `<Liquid.Item>` Props
 
-## SolidJS Integration
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `effect` | `'morph' \| 'move'` | `'morph'` | Dynamic physics mode. |
+| `x` | `number` | `0` | Coordinate translation X in px. |
+| `y` | `number` | `0` | Coordinate translation Y in px. |
+| `scale` | `number` | `1` | Transform scale multiplier. |
+| `transition` | `Transition` | `undefined` | Spring/easing config (`{ duration, ease, stiffness, damping }`). |
+| `delay` | `number` | `0` | Transition start delay in ms. |
+| `morph` | `MorphTuning` | `undefined` | Configuration for shape bridging, speed, and bounce. |
+| `move` | `MoveTuning` | `undefined` | Configuration for rubber trailing (`springiness`, `wobble`, `stretch`, `trail`). |
+| `dissolve` | `boolean \| number \| DissolveOptions` | `undefined` | Contact melt erosion with turbulence displacement. |
 
-### State Machine Example
+---
+
+## 3. Metal FX
+
+Liquid metal WebGL shader ring for buttons, badges, and icon controls with realtime luminance-driven catch-glow and proximity reflections.
 
 ```tsx
-import { createSignal } from 'solid-js';
-import { ThinkingOrb, type OrbState } from 'solid-thinking-orbs';
+import { MetalFx } from 'solid-thinking-orbs';
 
-function AgentStatus() {
-  const [status, setStatus] = createSignal<OrbState>('searching');
+<MetalFx preset="blueberry" variant="button">
+  <button class="h-10 px-6 rounded-full bg-zinc-900 text-white">
+    Upgrade to Pro
+  </button>
+</MetalFx>
 
-  return (
-    <div class="flex items-center gap-3">
-      <ThinkingOrb state={status()} size={64} />
-      <span>Status: {status()}</span>
-    </div>
-  );
-}
+<MetalFx preset="chromatic" variant="circle">
+  <button class="h-10 w-10 rounded-full bg-zinc-900 text-white">
+    ↑
+  </button>
+</MetalFx>
 ```
 
-### Pause / Play & Speed Controls
+### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `preset` | `MetalFxPreset` | `'chromatic'` | Color scheme (`chromatic`, `silver`, `gold`, `blueberry`, `rose`, `copper`). |
+| `variant` | `'button' \| 'circle'` | `'button'` | Geometry variant (`button` for pills/rectangles, `circle` for circular buttons). |
+| `theme` | `'auto' \| 'dark' \| 'light'` | `'auto'` | Theme mode for metallic reflection contrast. |
+| `strength` | `number` | `1.0` | Opacity and glow multiplier (0.0 to 1.0). |
+| `paused` | `boolean` | `false` | Pauses shader rendering loop. |
+| `disableGlow` | `boolean` | `false` | Disables outer edge specular glow highlights. |
+| `reflectionTargets` | `HTMLElement[] \| (() => HTMLElement[])` | `undefined` | Elements that receive ambient metallic light reflections. |
+| `borderRadius` | `number` | *Auto-detected* | Custom corner radius in px. |
+
+---
+
+## 4. Border Beam
+
+Animated glowing border effect tracing element edges with radial/conic gradients, breathing pulse modes, and traveling spotlights.
 
 ```tsx
-import { createSignal } from 'solid-js';
-import { ThinkingOrb } from 'solid-thinking-orbs';
+import { BorderBeam } from 'solid-thinking-orbs';
 
-function ControlledOrb() {
-  const [paused, setPaused] = createSignal(false);
-  const [speed, setSpeed] = createSignal(1.5);
+// Contained Breathing Glow
+<BorderBeam size="pulse-inner" colorVariant="ocean" borderRadius={16}>
+  <div class="p-6 bg-zinc-900 rounded-2xl">Content</div>
+</BorderBeam>
 
-  return (
-    <div>
-      <ThinkingOrb state="building" size={64} speed={speed()} paused={paused()} />
-      <button onClick={() => setPaused((p) => !p)}>
-        {paused() ? 'Resume' : 'Pause'}
-      </button>
-    </div>
-  );
-}
+// Outward Bloom Halo
+<BorderBeam size="pulse-outside" colorVariant="colorful" borderRadius={16}>
+  <div class="p-6 bg-zinc-900 rounded-2xl">Content</div>
+</BorderBeam>
+
+// Bottom Traveling Spotlight
+<BorderBeam size="line" colorVariant="sunset" borderRadius={16}>
+  <div class="p-6 bg-zinc-900 rounded-2xl">Content</div>
+</BorderBeam>
 ```
 
-## Custom Engine Architecture
+### Props
 
-All 3D drawing logic is modularized inside `src/engine/`.
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `size` | `BorderBeamSize` | `'md'` | Beam geometry: `'pulse-inner'`, `'pulse-outside'`, `'md'`, `'sm'`, `'line'`. |
+| `colorVariant` | `BorderBeamColorVariant` | `'colorful'` | Palette: `'colorful'`, `'rainbow'`, `'ocean'`, `'sunset'`, `'mono'`. |
+| `theme` | `'auto' \| 'dark' \| 'light'` | `'dark'` | Color contrast mode. |
+| `duration` | `number` | *Per-size* | Animation loop cycle duration in seconds. |
+| `active` | `boolean` | `true` | Toggles animation with smooth fade-in/fade-out. |
+| `borderRadius` | `number` | *Auto-detected* | Corner radius in px. |
+| `strength` | `number` | `1.0` | Beam opacity/intensity factor (0.0 to 1.0). |
 
-### Creating a New Engine Mode
+---
 
-1. Create drawing function (`src/engine/custom_mode.ts`):
-```ts
-import type { Dot, ModeDraw } from './types';
-import { makeProj, paint, radiusScale } from './core';
+## 5. Activity Heatmap
 
-export const drawCustomMode: ModeDraw = (ctx, size, t, dark, o) => {
-  const cx = size / 2;
-  const cy = size / 2;
-  const pt = makeProj(t * 0.2, 0.4, cx, cy, 1);
-  const rs = radiusScale(size, 0.6);
+GitHub activity visualization cards with staggered animations, tooltips, and expandable repository breakdown drawers.
 
-  const dots: Dot[] = [];
-  paint(ctx, dots, dark, o.rMin);
-};
+### V2: Rare UI GitHub Activity Card
+
+```tsx
+import { ActivityHeatmapV2, type RepoContribution } from 'solid-thinking-orbs';
+
+const repos: RepoContribution[] = [
+  { name: 'Option 1', count: 842 },
+  { name: 'Option 2', count: 624 },
+  { name: 'Option 3', count: 397 },
+];
+
+<ActivityHeatmapV2
+  totalContributions={1863}
+  year={2025}
+  weeks={26}
+  repos={repos}
+  accentColor="green"
+/>
 ```
 
-2. Register in `src/engine/registry.ts`:
-```ts
-import { drawCustomMode } from './custom_mode';
+### V1: Matrix Grid Heatmap
 
-export const MODE_DRAWS = {
-  // ...
-  custom: drawCustomMode
-};
+```tsx
+import { ActivityHeatmap } from 'solid-thinking-orbs';
+
+<ActivityHeatmap accentColor="green" weeks={20} />
+<ActivityHeatmap accentColor="blue" weeks={20} />
+<ActivityHeatmap accentColor="sunset" weeks={20} />
 ```
 
-3. Map state & preset in `src/presets.ts`:
-```ts
-export const STATE_TO_MODE = {
-  // ...
-  custom_state: 'custom'
-};
+### Props (`ActivityHeatmapV2Props`)
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `username` | `string` | `undefined` | GitHub login to fetch real contribution calendar and top repos. |
+| `contributions` | `Contribution[]` | *Demo mock* | Custom daily contribution records. |
+| `repos` | `RepoContribution[]` | *Demo mock* | Custom repository contribution breakdown. |
+| `totalContributions` | `number` | *Auto-summed* | Total contributions override. |
+| `year` | `number \| string` | *Current* | Display year in heading. |
+| `weeks` | `number` | `26` (or from months) | Number of weeks to render. |
+| `cellSize` | `number` | `11` | Size of each grid cell in px. |
+| `accent` / `accentColor` | `string` | `'#39d353'` | Accent color or palette key. |
+| `customDarkShades` | `[string, string, string, string, string]` | `undefined` | 5-step dark mode color scale. |
+| `customLightShades` | `[string, string, string, string, string]` | `undefined` | 5-step light mode color scale. |
+| `showMonths` | `boolean` | `true` | Displays month labels header. |
+| `defaultOpen` | `boolean` | `false` | Initial expanded state of repo breakdown drawer. |
+| `theme` | `'auto' \| 'dark' \| 'light'` | `'auto'` | Dark/light color theme. |
+
+---
+
+## 6. Agent Thinking
+
+Collapsible multi-line reasoning stream displaying step-by-step thoughts from LLMs and agentic workflows with live elapsed timer.
+
+```tsx
+import { AgentThinking } from 'solid-thinking-orbs';
+
+<AgentThinking
+  sentences={[
+    "Reading the request and locating the middleware...",
+    "Validating jwt verification parameters...",
+    "Confirming signing secret isolation...",
+    "Drafting the patch with regression tests..."
+  ]}
+  showTimer={true}
+  autoCollapse={true}
+  onComplete={() => console.log('Thinking finished!')}
+/>
 ```
 
-## Types
+### Props
 
-Import TypeScript types directly:
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `sentences` | `string[]` | *Default demo thoughts* | List of reasoning steps to reveal sequentially. |
+| `delays` | `number[]` | `[700, 900, 800, ...]` | Delay in ms before revealing each subsequent thought. |
+| `defaultOpen` | `boolean` | `true` | Initial expanded state of the thought viewport. |
+| `showTimer` | `boolean` | `true` | Shows live elapsed seconds in header ("Thinking for 4s..."). |
+| `autoCollapse` | `boolean` | `true` | Automatically collapses the thought box upon completion. |
+| `onComplete` | `() => void` | `undefined` | Callback fired when all thoughts are revealed. |
+
+---
+
+## 7. Web Search
+
+Live search radar component displaying real-time URL discovery and web queries for search-augmented agents.
+
+```tsx
+import { WebSearch } from 'solid-thinking-orbs';
+
+<WebSearch
+  query="JWT security best practices and authorization flaws"
+  sites={[
+    { title: "JWT verification best practices", url: "auth0.com/blog/jwt-security", discover: 600, finish: 2400 },
+    { title: "OWASP Node.js authentication guide", url: "owasp.org/www-project-nodejs", discover: 1600, finish: 4000 }
+  ]}
+  loop={true}
+/>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `query` | `string` | *Default query* | Search query text displayed in header. |
+| `sites` | `WebSearchSite[]` | *Default mock sites* | Discovered websites with `{ title, url, discover, finish }`. |
+| `defaultOpen` | `boolean` | `true` | Initial expanded state of results list. |
+| `loop` | `boolean` | `true` | Continuously re-runs the discovery simulation. |
+
+---
+
+## 8. To-do List
+
+Cursor-style agent task list: a collapsible card showing completed, active in-progress, and pending item states, with a progress pie ring and rolling counter numbers.
+
+```tsx
+import { TodoList } from 'solid-thinking-orbs';
+
+<TodoList
+  labels={[
+    "Scaffold project structure",
+    "Build component registry",
+    "Implement entitlement gating",
+    "Wire up Stripe checkout",
+    "Polish landing page"
+  ]}
+  stepMs={2250}
+  startDelay={700}
+  loop={true}
+  onComplete={() => console.log('All tasks finished!')}
+/>
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `labels` | `string[]` | *5 default tasks* | Task item descriptions. |
+| `stepMs` | `number` | `2250` | Milliseconds spent on each task before marking it complete. |
+| `startDelay` | `number` | `700` | Delay in ms before starting the first task. |
+| `defaultCollapsed` | `boolean` | `false` | Initial collapsed state. |
+| `loop` | `boolean` | `true` | Automatically restarts the task flow after all tasks finish. |
+| `onComplete` | `() => void` | `undefined` | Callback fired when the final task is completed. |
+
+---
+
+## 9. Theme Resolution
+
+All components support universal dark/light theme resolution:
+
+1. **Explicit**: Pass `theme="dark"` or `theme="light"` to force a theme.
+2. **Auto**: When `theme="auto"` is set, the component:
+   - Watches ancestor DOM elements for `data-theme="dark|light"` or `class="dark|light"`.
+   - Falls back to `(prefers-color-scheme: dark)`.
+   - Is SSR-safe (resolves on the client before initial paint).
+
+---
+
+## 10. TypeScript Exports Reference
 
 ```ts
 import type {
+  // ThinkingOrb
   OrbState,
   OrbSize,
+  OrbTheme,
   ThinkingOrbProps,
-  ModeDraw,
-  Dot
+
+  // BorderBeam
+  BorderBeamProps,
+  BorderBeamColorVariant,
+  BorderBeamSize,
+  BorderBeamTheme,
+
+  // MetalFx
+  MetalFxProps,
+  MetalFxPreset,
+  MetalFxTheme,
+  MetalFxVariant,
+
+  // Liquid Gooey
+  LiquidProps,
+  LiquidEffect,
+  LiquidItemProps,
+  MorphTuning,
+  MoveTuning,
+  DissolveOptions,
+  EvolveOptions,
+  MoveOptions,
+  Transition,
+
+  // ActivityHeatmap
+  ActivityHeatmapProps,
+  ActivityHeatmapV2Props,
+  RepoContribution,
+  Contribution,
+  ContributionLevel,
+  HeatmapAccent,
+
+  // AgentThinking
+  AgentThinkingProps,
+
+  // WebSearch
+  WebSearchProps,
+  WebSearchSite,
+
+  // TodoList
+  TodoListProps,
 } from 'solid-thinking-orbs';
 ```
+
