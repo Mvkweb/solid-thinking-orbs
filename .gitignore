@@ -27,6 +27,7 @@ dist-ssr
 AGENTS.md
 
 # External reference repositories
+References/
 solid-timewarp/
 Monocharts/
 amicro/
@@ -34,4 +35,5 @@ amicro/
 hpbrn-cc/
 Libraries/
 rare-ui/
+
 

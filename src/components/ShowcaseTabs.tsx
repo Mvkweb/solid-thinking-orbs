@@ -1,6 +1,6 @@
 import { For } from 'solid-js';
 
-export type ShowcaseTab = 'orbs' | 'metal' | 'border-beam' | 'agent-thinking' | 'web-search' | 'todo' | 'heatmaps' | 'gooey';
+export type ShowcaseTab = 'orbs' | 'bots' | 'metal' | 'border-beam' | 'agent-thinking' | 'web-search' | 'todo' | 'heatmaps' | 'gooey';
 
 export interface TabItem {
   id: ShowcaseTab;
@@ -9,6 +9,7 @@ export interface TabItem {
 
 const TABS: TabItem[] = [
   { id: 'orbs', label: 'Thinking Orbs' },
+  { id: 'bots', label: 'Bot Avatars' },
   { id: 'metal', label: 'Metal FX' },
   { id: 'border-beam', label: 'Border Beam' },
   { id: 'agent-thinking', label: 'Agent Thinking' },

@@ -15,8 +15,9 @@ Comprehensive API and integration reference for `solid-thinking-orbs`.
 7. [Agent Thinking (`<AgentThinking>`)](#6-agent-thinking)
 8. [Web Search (`<WebSearch>`)](#7-web-search)
 9. [To-do List (`<TodoList>`)](#8-to-do-list)
-10. [Theme Resolution](#9-theme-resolution)
-11. [TypeScript Exports Reference](#10-typescript-exports-reference)
+10. [Bot Avatars (`<BotAvatar>`)](#9-bot-avatars)
+11. [Theme Resolution](#10-theme-resolution)
+12. [TypeScript Exports Reference](#11-typescript-exports-reference)
 
 ---
 
@@ -373,7 +374,88 @@ import { TodoList } from 'solid-thinking-orbs';
 
 ---
 
-## 9. Theme Resolution
+## 9. Bot Avatars
+
+Animated bot avatars with living faces, blinking eyes, mouth expressions, and 3 distinct behavioral states (`default` [idle], `working`, `sleeping`). Drawn as 3D rounded extruded solids on high-performance 2D Canvas with four shading models (`plastic`, `crisp`, `smooth`, `flat`), cursor-following, jump physics, and whirl trails.
+
+```tsx
+import { BotAvatar } from 'solid-thinking-orbs';
+
+// Idle clover bot with mouth & eyes
+<BotAvatar type="clover" face="mouth" state="default" size={64} />
+
+// Working state (hopping and spinning with wide smiles)
+<BotAvatar type="star" state="working" size={64} />
+
+// Sleeping state (closed eyes, rhythmic breathing pulses, nodding)
+<BotAvatar type="cat" state="sleeping" size={64} />
+```
+
+### Props (`BotAvatarProps`)
+
+#### Core & Appearance
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `type` | `BotAvatarType` | `'clover'` | Body shape (28 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `flame`, `gem`, `grim`). |
+| `size` | `number \| string` | `64` | Rendered size in px or any CSS length string (e.g. `'100%'`, `'8rem'`). |
+| `color` | `string` | *Per-type palette* | Custom body color override (HEX, RGB, or HSL). |
+| `ink` | `string` | *Auto-contrasted* | Face ink color (automatically inverts to high-contrast white on dark bodies). |
+| `brightness` | `number` | `1.0` | Lightness multiplier on body color (`0.5` darker to `1.5` lighter). |
+| `saturation` | `number` | `1.5` | Saturation multiplier on body color (`0.5` muted to `2.0` vivid). |
+| `shading` | `'plastic' \| 'crisp' \| 'smooth' \| 'flat' \| boolean` | `'plastic'` | Lighting model: glossy matcap 3D, vector rim, soft ambient, or flat depth. (`true` = crisp, `false` = flat). |
+| `depth` | `number` | `0.65` | Extrusion thickness shown on turns and aerial flips (`0.2` to `2.0`). |
+
+#### Lighting & Material
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `light` | `number` | `265` | Directional light source angle in degrees clockwise from the top (`0` to `360`). |
+| `highlight` | `number` | `1.3` | Specular highlight gloss intensity (`0` to `2.0`). |
+| `shadow` | `number` | `0.35` | Ambient occlusion and shadow intensity (`0` to `2.0`). |
+| `rim` | `number` | `0.5` | Width of lit rim in `crisp`, or Fresnel rim glow strength in `plastic` (`0` to `2.0`). |
+| `spread` | `number` | `1.55` | Soft shading reach in `smooth`, or specular highlight spread in `plastic` (`0.4` to `2.5`). |
+| `theme` | `'auto' \| 'dark' \| 'light'` | `'auto'` | Surface contrast detection for whirl and ink. |
+
+#### Behavior & Interaction
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `state` | `'default' \| 'working' \| 'sleeping'` | `'default'` | Behavioral state and animation motion rig. |
+| `face` | `'eyes' \| 'mouth'` | *Per-type default* | Face kind. `'eyes'` alone or `'mouth'` for animated mouth expressions (smiling, laughing, yawning). |
+| `interactive` | `boolean` | `true` | Enables pointer glance tracking in 3D spherical space and click-to-hop ("poke"). |
+| `turn` | `number` | `1.0` | Head glance turn amplitude while idle (`0` keeps it facing forward, up to `2.0`). |
+| `speed` | `number` | `1.0` | Global animation speed multiplier (`0.5` slow-mo, `2.0` hyper). |
+| `paused` | `boolean` | `false` | Freezes animation on current frame. |
+| `seed` | `number` | *Auto instance hash* | `0–1` timing offset so adjacent avatars do not blink or hop in unison. |
+
+#### Whirl & Spin Trails
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `whirl` | `number` | `0` (or `1`) | Whirl smoke/energy ribbon intensity on spins (`0` to `2.0`). |
+| `whirlSize` | `number` | `1.0` | Radius scale of the whirl ring (`0.6` to `1.6`). |
+| `whirlWidth` | `number` | `1.0` | Thickness of the whirl ribbon (`0.4` to `2.0`). |
+| `whirlLength` | `number` | `1.0` | Angular arc length of the trail (`0.4` to `1.6`). |
+| `whirlTilt` | `number` | `1.0` | Camera perspective tilt of the whirl ring (`0.5` to `1.8`). |
+
+#### Jump & Physics Tuning (13 Knobs)
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `jumpHeight` | `number` | `26` | Jump peak altitude in body units (body is 100 tall). |
+| `jumpTime` | `number` | `0.68` | Seconds spent in the air (controls gravity feel). |
+| `jumpStretch` | `number` | `1.0` | In-air vertical velocity stretch multiplier (`0` to `2.0`). |
+| `jumpSquash` | `number` | `1.15` | Pre-takeoff and post-landing body compression (`0` to `2.0`). |
+| `jumpSquashTime`| `number` | `0.37` | Seconds the landing squash takes to recover. |
+| `jumpSquashEase`| `'sharp' \| 'pulse' \| 'soft' \| 'bouncy'` | `'pulse'` | Easing curve for the landing squash recovery. |
+| `jumpGroundTime`| `number` | `0.11` | Seconds the body holds its deepest compression before rising. |
+| `jumpGroundEase`| `'sharp' \| 'pulse' \| 'soft' \| 'bouncy'` | `'pulse'` | Settling easing curve during ground compression. |
+| `jumpRiseTime` | `number` | `0.33` | Seconds the body takes to rise back to neutral stance. |
+| `jumpRiseEase` | `'sharp' \| 'pulse' \| 'soft' \| 'bouncy'` | `'pulse'` | Rise recovery easing curve (`'bouncy'` adds an overshoot wobble). |
+| `jumpClickSquashTime` | `number` | `0.24` | Quick poke landing squash recovery duration. |
+| `jumpSpin` | `number` | `1` | Whole 360° aerial flips executed per jump (`0`, `1`, or `2`). |
+| `jumpLean` | `number` | `6` | Aerodynamic forward/backward lean angle in degrees. |
+| `jumpEvery` | `number` | `8` | Seconds between spontaneous idle hops (±40% jitter; `0` disables idle hops). |
+| `jumpLand` | `number` | `0` | Touchdown anticipation timing offset in seconds (negative bracy). |
+---
+
+## 10. Theme Resolution
 
 All components support universal dark/light theme resolution:
 
@@ -385,7 +467,7 @@ All components support universal dark/light theme resolution:
 
 ---
 
-## 10. TypeScript Exports Reference
+## 11. TypeScript Exports Reference
 
 ```ts
 import type {
@@ -394,6 +476,15 @@ import type {
   OrbSize,
   OrbTheme,
   ThinkingOrbProps,
+
+  // BotAvatar
+  BotAvatarProps,
+  BotAvatarType,
+  BotAvatarFace,
+  BotAvatarState,
+  BotAvatarShading,
+  BotAvatarPreset,
+  BotAvatarSquashEase,
 
   // BorderBeam
   BorderBeamProps,
@@ -437,4 +528,5 @@ import type {
   TodoListProps,
 } from 'solid-thinking-orbs';
 ```
+
 

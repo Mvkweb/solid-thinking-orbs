@@ -67,6 +67,54 @@ export type {
   CornerRadii,
 } from './liquid-gooey';
 
+// Bot Avatars Component
+export {
+  BotAvatar,
+  botAvatarPresets,
+  botAvatarPalette,
+  botAvatarTypes,
+  botAvatarFaces,
+  botAvatarStates,
+  botAvatarShapes,
+  botAvatarParts,
+  autoInk,
+  luminance,
+  parseColor,
+  shade,
+  BotAvatarSim,
+  restPose,
+  drawBotAvatarFrame,
+  BOT_AVATAR_OVERSCAN,
+  BOT_AVATAR_RISE,
+  warmBotAvatarPlastic,
+  bakeBotAvatarForm,
+  buildBotAvatarMatcap,
+  shadeBotAvatarTexels,
+  botAvatarCapFrame,
+  botAvatarTier,
+  BOT_AVATAR_PAD,
+  BOT_AVATAR_SPAN,
+  BOT_AVATAR_MATCAP_SIZE,
+  botAvatarJumpDefaults,
+} from './bot-avatars';
+export type {
+  BotAvatarProps,
+  BotAvatarType,
+  BotAvatarFace,
+  BotAvatarState,
+  BotAvatarShading,
+  BotAvatarPreset,
+  BotAvatarSquashEase,
+  BotAvatarForm,
+  BotAvatarFrame,
+  BotAvatarMaterial,
+  BotAvatarRig,
+  BotAvatarJumpConfig,
+  BotAvatarPose,
+  BotAvatarDrawConfig,
+} from './bot-avatars';
+
+
 
 
 

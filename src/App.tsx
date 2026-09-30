@@ -14,6 +14,7 @@ import { WebSearchShowcase } from './components/WebSearchShowcase';
 import { TodoListShowcase } from './components/TodoListShowcase';
 import { ActivityHeatmapShowcase } from './components/ActivityHeatmapShowcase';
 import { GooeyShowcase } from './components/GooeyShowcase';
+import { BotAvatarsShowcase } from './components/BotAvatarsShowcase';
 
 const USAGE_SNIPPET = `import { ThinkingOrb } from 'solid-thinking-orbs';\n\n<ThinkingOrb state="listening" size={64} />`;
 
@@ -56,6 +57,11 @@ export function App() {
           </section>
 
           <Playground speed={speed()} onSpeedChange={setSpeed} />
+        </Match>
+
+        <Match when={activeTab() === 'bots'}>
+          <Installation />
+          <BotAvatarsShowcase />
         </Match>
 
         <Match when={activeTab() === 'metal'}>

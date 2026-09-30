@@ -226,6 +226,55 @@ import { Liquid } from 'solid-thinking-orbs';
 
 ---
 
+## 9. Bot Avatars
+
+Animated bot avatars with living faces, blinking eyes, mouth expressions, and 3 distinct behavioral states (`default` [idle], `working`, `sleeping`). Drawn as 3D rounded extruded solids on high-performance 2D Canvas with four shading models (`plastic`, `crisp`, `smooth`, `flat`), cursor-following, jump physics, and whirl trails.
+
+```tsx
+import { BotAvatar } from 'solid-thinking-orbs';
+
+// Idle clover bot with mouth & eyes
+<BotAvatar type="clover" face="mouth" state="default" size={64} />
+
+// Working state (hopping and spinning with wide smiles)
+<BotAvatar type="star" state="working" size={64} />
+
+// Sleeping state (closed eyes, rhythmic breathing pulses, nodding)
+<BotAvatar type="cat" state="sleeping" size={64} />
+```
+
+### 28 Body Shapes
+`clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `flame`, `gem`, `grim`.
+
+### Deep Configuration & Physics Tuning
+
+Every bot avatar is deeply customizable with over 30 props for custom palettes, 3D lighting angles, jump physics, and spin trails:
+
+```tsx
+<BotAvatar
+  type="grim"
+  color="#E0E7FF"               // Custom body color
+  ink="#1E1B4B"                 // Custom face ink (auto-contrasted by default)
+  shading="plastic"             // "plastic" | "crisp" | "smooth" | "flat"
+  light={315}                   // Light angle in degrees (0–360)
+  highlight={1.8}               // Specular gloss intensity
+  shadow={0.4}                  // Ambient occlusion depth
+  depth={1.0}                   // Extrusion thickness
+  whirl={1.5}                   // Kinetic energy whirl ribbon on spins
+  jumpHeight={36}               // Jump altitude in body units
+  jumpTime={0.5}                // In-air airtime duration
+  jumpStretch={1.4}             // Velocity stretch factor
+  jumpSquash={1.5}              // Take-off & landing compression
+  jumpSquashEase="bouncy"       // "sharp" | "pulse" | "soft" | "bouncy"
+  jumpSpin={2}                  // Number of aerial 360° flips
+  jumpLean={12}                 // Aerodynamic lean angle
+/>
+```
+
+See [DOCS.md](DOCS.md#9-bot-avatars) for the full 32-prop API reference table.
+
+---
+
 ## Development
 
 ```bash
@@ -240,7 +289,8 @@ bun run typecheck    # Validate TypeScript types
 ## Credits & License
 
 - SolidJS port, extended V2 states, and additional UI modules by **Mvkweb**.
-- Original Thinking Orbs concept & Liquid Gooey physics by **Jakub Antalík**.
+- Original Thinking Orbs concept, Liquid Gooey physics, and Bot Avatars by **Jakub Antalík**.
 - GitHub Activity V2 design inspired by **Rare UI**.
 - Licensed under the [MIT License](LICENSE).
+
 
