@@ -396,7 +396,7 @@ import { BotAvatar } from 'solid-thinking-orbs';
 #### Core & Appearance
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | `BotAvatarType` | `'clover'` | Body shape (28 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `flame`, `gem`, `grim`). |
+| `type` | `BotAvatarType` | `'clover'` | Body shape (31 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `flame`, `gem`, `grim`). |
 | `size` | `number \| string` | `64` | Rendered size in px or any CSS length string (e.g. `'100%'`, `'8rem'`). |
 | `color` | `string` | *Per-type palette* | Custom body color override (HEX, RGB, or HSL). |
 | `ink` | `string` | *Auto-contrasted* | Face ink color (automatically inverts to high-contrast white on dark bodies). |

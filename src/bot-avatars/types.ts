@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js';
 
-/** The twenty-eight body shapes. */
+/** The thirty-one body shapes. */
 export type BotAvatarType =
   | 'clover'
   | 'flower'
@@ -27,6 +27,9 @@ export type BotAvatarType =
   | 'daemon'
   | 'cubic'
   | 'artix'
+  | 'arch'
+  | 'apple'
+  | 'kite'
   | 'flame'
   | 'gem'
   | 'grim';

@@ -243,8 +243,8 @@ import { BotAvatar } from 'solid-thinking-orbs';
 <BotAvatar type="cat" state="sleeping" size={64} />
 ```
 
-### 28 Body Shapes
-`clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `flame`, `gem`, `grim`.
+### 31 Body Shapes
+`clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `flame`, `gem`, `grim`.
 
 ### Deep Configuration & Physics Tuning
 
