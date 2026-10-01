@@ -17,8 +17,9 @@ Comprehensive API and integration reference for `solid-thinking-orbs`.
 9. [To-do List (`<TodoList>`)](#8-to-do-list)
 10. [Bot Avatars (`<BotAvatar>`)](#9-bot-avatars)
 11. [Animated Gradient (`<AnimatedGradient>`)](#10-animated-gradient-webgl2)
-12. [Theme Resolution](#11-theme-resolution)
-13. [TypeScript Exports Reference](#12-typescript-exports-reference)
+12. [Light Rays (`<LightRays>` / `<Rays>`)](#11-light-rays-webgl2)
+13. [Theme Resolution](#12-theme-resolution)
+14. [TypeScript Exports Reference](#13-typescript-exports-reference)
 
 ---
 
@@ -535,7 +536,76 @@ import { AnimatedGradient } from 'solid-thinking-orbs';
 
 ---
 
-## 11. Theme Resolution
+## 11. Light Rays (`WebGL2`)
+
+High-performance GPU volumetric light ray shader backgrounds featuring dual-origin scatter directions, distance attenuation reach, trigonometric ray wave propagation, and single, multi-gradient, or random HSL spectrum color modes.
+
+```tsx
+import { LightRays } from 'solid-thinking-orbs';
+
+// Single Color Hero Background
+<div class="relative min-h-[400px] w-full flex items-center justify-center rounded-2xl overflow-hidden">
+  <LightRays
+    intensity={13}
+    rays={32}
+    reach={16}
+    position={50}
+    raysColor={{ mode: "single", color: "#639AFF" }}
+    backgroundColor="#000000"
+    radius="16px"
+  />
+  <div class="z-10 text-white font-bold text-4xl">Beautiful Light Rays</div>
+</div>
+
+// Multi Dual-Color Gradient Rays
+<LightRays
+  intensity={16}
+  rays={36}
+  reach={22}
+  position={50}
+  animation={{ animate: true, speed: 12 }}
+  raysColor={{ mode: "multi", color1: "#2060DF", color2: "#FFFFFF" }}
+  backgroundColor="#000000"
+/>
+```
+
+### Props (`LightRaysProps`)
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `intensity` | `number` | `13` | Brightness intensity of the rays (`0` to `100`). |
+| `rays` | `number` | `32` | Number and frequency density of light rays (`0` to `100`). |
+| `reach` | `number` | `16` | How far the rays extend across the viewport (`0` to `100`). |
+| `position` | `number` | `50` | Horizontal origin percentage of the light source (`0` to `100`). |
+| `radius` | `string` | `'0px'` | Border radius of the clipping container. |
+| `backgroundColor` | `string` | `'#000'` | Background color of the container canvas. |
+| `animation` | `{ animate?: boolean; speed?: number }` | `{ animate: true, speed: 10 }` | Animation active toggle and time speed multiplier (`0` to `50`). |
+| `raysColor` | `RaysColorConfig` | `{ mode: 'single', color: '#639AFF' }` | Color mode: single color, multi dual-gradient, or random HSL spectrum. |
+| `theme` | `'auto' \| 'dark' \| 'light'` | `'auto'` | Force dark or light mode palette, or auto-detect. |
+| `class` | `string` | `undefined` | Additional CSS class names. |
+| `style` | `JSX.CSSProperties \| string` | `undefined` | Additional inline styles for the container. |
+
+### Color Modes (`RaysColorConfig`)
+
+- **Single Color**: `{ mode: 'single', color: string }`
+- **Multi Dual-Color**: `{ mode: 'multi', color1: string, color2: string }`
+- **Random HSL Spectrum**: `{ mode: 'random' }` (automatically selects contrasting high-vibrancy HSL complimentary tones)
+
+### Presets Reference
+
+| Preset | Mode | Color 1 / Color 2 | Speed | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `Cyber Blue` | `single` | `#639AFF` | `10` | Electric azure and cobalt blue light rays with high reach and crisp luminance. |
+| `Azure & White` | `multi` | `#2060DF`, `#FFFFFF` | `12` | Deep royal blue light beams paired with brilliant white celestial specular highlights. |
+| `Sunset Rose` | `multi` | `#FF5E3A`, `#FF2A68` | `11` | Warm sunset crimson and vivid magenta rays radiating across dusk skies. |
+| `Emerald Aurora` | `multi` | `#00F260`, `#0575E6` | `9` | Northern lights neon emerald green blending into deep Arctic cyan ocean hues. |
+| `Neon Violet` | `multi` | `#A855F7`, `#EC4899` | `14` | Synthwave violet and electric hot pink rays cutting through deep void darkness. |
+| `Solar Flare` | `multi` | `#FFA000`, `#FF3D00` | `16` | High-energy coronal solar flares with incandescent amber and fiery vermilion. |
+| `Monochrome` | `single` | `#FFFFFF` | `8` | Pure silver spotlight beams creating clean modern studio lighting. |
+
+---
+
+## 12. Theme Resolution
 
 All components support universal dark/light theme resolution:
 
@@ -547,7 +617,7 @@ All components support universal dark/light theme resolution:
 
 ---
 
-## 12. TypeScript Exports Reference
+## 13. TypeScript Exports Reference
 
 ```ts
 import type {
@@ -576,6 +646,15 @@ import type {
   AnimatedGradientPresetColors,
   AnimatedGradientNoiseConfig,
   GradientConfig,
+
+  // LightRays / Rays (WebGL2)
+  LightRaysProps,
+  LightRaysPreset,
+  LightRaysAnimationConfig,
+  LightRaysSingleColorConfig,
+  LightRaysMultiColorConfig,
+  LightRaysRandomColorConfig,
+  LightRaysColorConfig,
 
   // BorderBeam
   BorderBeamProps,

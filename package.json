@@ -1,7 +1,7 @@
 {
   "name": "solid-thinking-orbs",
-  "version": "0.2.0",
-  "description": "Premium SolidJS UI animations: Thinking Orbs, Bot Avatars animated living faces, Animated Gradient WebGL2 canvas, Liquid Gooey fluid physics, MetalFx WebGL shader rings, BorderBeam dynamic glows, Activity Heatmaps, AgentThinking streams, and WebSearch live indicators",
+  "version": "0.2.1",
+  "description": "Premium SolidJS UI animations: Thinking Orbs, Bot Avatars animated living faces, Light Rays volumetric shader beams, Animated Gradient WebGL2 canvas, Liquid Gooey fluid physics, MetalFx WebGL shader rings, BorderBeam dynamic glows, Activity Heatmaps, AgentThinking streams, and WebSearch live indicators",
   "author": "Jakub Antalik",
   "contributors": [
     "Mvkweb (SolidJS Port)"

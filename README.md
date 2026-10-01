@@ -314,6 +314,43 @@ See [DOCS.md](DOCS.md#10-animated-gradient-webgl2) for the full props and custom
 
 ---
 
+## 11. Light Rays (`WebGL2`)
+
+High-performance GPU volumetric light ray shader backgrounds with dual-origin scatter directions, distance attenuation reach, and chromatic dual-color blending.
+
+```tsx
+import { LightRays } from 'solid-thinking-orbs';
+
+// Single Color Hero Background
+<div class="relative min-h-[400px] w-full flex items-center justify-center rounded-2xl overflow-hidden">
+  <LightRays
+    intensity={13}
+    rays={32}
+    reach={16}
+    position={50}
+    raysColor={{ mode: "single", color: "#639AFF" }}
+    backgroundColor="#000000"
+    radius="16px"
+  />
+  <div class="z-10 text-white font-bold text-4xl">Your Hero Content</div>
+</div>
+
+// Multi Dual-Color Gradient Rays
+<LightRays
+  intensity={16}
+  rays={36}
+  reach={22}
+  position={50}
+  animation={{ animate: true, speed: 12 }}
+  raysColor={{ mode: "multi", color1: "#2060DF", color2: "#FFFFFF" }}
+  backgroundColor="#000000"
+/>
+```
+
+See [DOCS.md](DOCS.md#11-light-rays-webgl2) for the full props and presets reference.
+
+---
+
 ## Development
 
 ```bash

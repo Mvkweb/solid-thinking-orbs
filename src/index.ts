@@ -135,3 +135,25 @@ export type {
   PresetColors as AnimatedGradientPresetColors,
   NoiseConfig as AnimatedGradientNoiseConfig,
 } from './animated-gradient';
+
+// Light Rays Background Component (WebGL2)
+export {
+  LightRays,
+  Rays,
+  lightRaysPresets,
+  presetNames as lightRaysPresetNames,
+  colorToRgb as lightRaysColorToRgb,
+  hslToRgb as lightRaysHslToRgb,
+  generateRandomRaysColors,
+  mapRange as lightRaysMapRange,
+} from './light-rays';
+export type {
+  LightRaysProps,
+  LightRaysPreset,
+  AnimationConfig as LightRaysAnimationConfig,
+  SingleColorConfig as LightRaysSingleColorConfig,
+  MultiColorConfig as LightRaysMultiColorConfig,
+  RandomColorConfig as LightRaysRandomColorConfig,
+  RaysColorConfig as LightRaysColorConfig,
+} from './light-rays';
+

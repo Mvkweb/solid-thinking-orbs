@@ -1,6 +1,17 @@
 import { For } from 'solid-js';
 
-export type ShowcaseTab = 'orbs' | 'bots' | 'metal' | 'border-beam' | 'agent-thinking' | 'web-search' | 'todo' | 'heatmaps' | 'gooey' | 'gradient';
+export type ShowcaseTab =
+  | 'orbs'
+  | 'bots'
+  | 'metal'
+  | 'border-beam'
+  | 'agent-thinking'
+  | 'web-search'
+  | 'todo'
+  | 'heatmaps'
+  | 'gooey'
+  | 'gradient'
+  | 'rays';
 
 export interface TabItem {
   id: ShowcaseTab;
@@ -18,6 +29,7 @@ const TABS: TabItem[] = [
   { id: 'heatmaps', label: 'Activity Heatmaps' },
   { id: 'gooey', label: 'Liquid Gooey' },
   { id: 'gradient', label: 'Animated Gradient' },
+  { id: 'rays', label: 'Light Rays' },
 ];
 
 export function ShowcaseTabs(props: {
