@@ -17,6 +17,7 @@ export interface DrawConfig {
   faceY: number;
   faceScale: number;
   color: string;
+  color2?: string;
   ink: string;
   shading: BotAvatarShading;
   /** intensities and geometry of the lighting; omitted means the stock look */
@@ -272,23 +273,24 @@ export function draw(ctx: CanvasRenderingContext2D, box: number, pose: Pose, cfg
   /* one solid: the slice stack (or the plastic material) for an outline
      at a depth; the thin parts come first with a fraction of the depth,
      then the body over them */
-  const drawSolid = (path: Path2D, key: string, halfDepth: number): boolean => {
+  const drawSolid = (path: Path2D, key: string, halfDepth: number, palOverride?: Palette): boolean => {
+    const curPal = palOverride ?? pal;
     /* the lit gradient, in the body's own space: light from the upper left */
-    let lit: CanvasGradient | string = pal.near;
-    let capFill: CanvasGradient | string = pal.base;
+    let lit: CanvasGradient | string = curPal.near;
+    let capFill: CanvasGradient | string = curPal.base;
     if (mode === 'crisp') {
-      if (!pal.grad || pal.grad.lx !== lx || pal.grad.ly !== ly) {
+      if (!curPal.grad || curPal.grad.lx !== lx || curPal.grad.ly !== ly) {
         const g = ctx.createLinearGradient(lx * 56, ly * 56, -lx * 56, -ly * 56);
-        g.addColorStop(0, pal.light);
-        g.addColorStop(0.45, pal.near);
-        g.addColorStop(1, pal.dark);
+        g.addColorStop(0, curPal.light);
+        g.addColorStop(0.45, curPal.near);
+        g.addColorStop(1, curPal.dark);
         const c = ctx.createLinearGradient(lx * 46, ly * 46, -lx * 46, -ly * 46);
-        c.addColorStop(0, pal.capTop);
-        c.addColorStop(1, pal.capBottom);
-        pal.grad = { lx, ly, lit: g, cap: c };
+        c.addColorStop(0, curPal.capTop);
+        c.addColorStop(1, curPal.capBottom);
+        curPal.grad = { lx, ly, lit: g, cap: c };
       }
-      lit = pal.grad.lit;
-      capFill = pal.grad.cap;
+      lit = curPal.grad.lit;
+      capFill = curPal.grad.cap;
     }
 
     /* plastic: the material module draws the whole body — side copies from
@@ -301,7 +303,7 @@ export function draw(ctx: CanvasRenderingContext2D, box: number, pose: Pose, cfg
         ctx,
         { ...cfg, path, typeKey: key },
         { cy, sy, cp, sp, facing, roll: pose.roll, halfDepth, cap, lx, ly, dev: box * dpr, ctm: body, still: cfg.still },
-        pal,
+        curPal,
         null,
         { shadow, highlight, spread, rim: cfg.rim ?? 0.5 }
       );
@@ -332,10 +334,10 @@ export function draw(ctx: CanvasRenderingContext2D, box: number, pose: Pose, cfg
       pa = m0; pb = m1; pc = 0; pd = m3; pe = e; pf = fo;
       let style: CanvasGradient | string;
       /* smooth: one colour ramp through the depth to the front, no edge at the cap */
-      if (soft) style = pal.smoothMix[j];
+      if (soft) style = curPal.smoothMix[j];
       else if (j === SLICES - 1) style = capFill;
       else if (near > 0.6) style = lit;
-      else style = pal.crispMix[j];
+      else style = curPal.crispMix[j];
       if (style !== fill) ctx.fillStyle = fill = style;
       ctx.fill(path);
       if (union) union.addPath(path, { a: m0, b: m1, c: 0, d: m3, e, f: fo });
@@ -374,7 +376,11 @@ export function draw(ctx: CanvasRenderingContext2D, box: number, pose: Pose, cfg
   /* the far half of the whirl sits behind everything */
   drawWhirl(ctx, pose, cfg.color, lx, ly, false, cfg.whirl);
 
-  if (cfg.parts) drawSolid(cfg.parts, `${cfg.typeKey ?? 'custom'}:parts`, halfDepth * (cfg.partsDepth ?? 0.4));
+  if (cfg.parts) {
+    const partsPal = cfg.color2 ? palette(cfg.color2, shadow, highlight) : pal;
+    const partsHalf = cfg.color2 ? halfDepth : halfDepth * (cfg.partsDepth ?? 0.4);
+    drawSolid(cfg.parts, `${cfg.typeKey ?? 'custom'}:parts`, partsHalf, partsPal);
+  }
   const plasticDone = drawSolid(cfg.path, cfg.typeKey ?? 'custom', halfDepth);
 
   /* the face: each feature sits on a sphere behind the front cap, so a

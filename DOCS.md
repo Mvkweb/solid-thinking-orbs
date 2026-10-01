@@ -396,9 +396,10 @@ import { BotAvatar } from 'solid-thinking-orbs';
 #### Core & Appearance
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | `BotAvatarType` | `'clover'` | Body shape (31 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `flame`, `gem`, `grim`). |
+| `type` | `BotAvatarType` | `'clover'` | Body shape (33 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `nixos`, `discord`, `flame`, `gem`, `grim`). |
 | `size` | `number \| string` | `64` | Rendered size in px or any CSS length string (e.g. `'100%'`, `'8rem'`). |
 | `color` | `string` | *Per-type palette* | Custom body color override (HEX, RGB, or HSL). |
+| `color2` | `string` | *Per-type palette* | Secondary accent color override for dual-tone avatars (e.g. NixOS). |
 | `ink` | `string` | *Auto-contrasted* | Face ink color (automatically inverts to high-contrast white on dark bodies). |
 | `brightness` | `number` | `1.0` | Lightness multiplier on body color (`0.5` darker to `1.5` lighter). |
 | `saturation` | `number` | `1.5` | Saturation multiplier on body color (`0.5` muted to `2.0` vivid). |
@@ -453,9 +454,87 @@ import { BotAvatar } from 'solid-thinking-orbs';
 | `jumpLean` | `number` | `6` | Aerodynamic forward/backward lean angle in degrees. |
 | `jumpEvery` | `number` | `8` | Seconds between spontaneous idle hops (±40% jitter; `0` disables idle hops). |
 | `jumpLand` | `number` | `0` | Touchdown anticipation timing offset in seconds (negative bracy). |
+
 ---
 
-## 10. Theme Resolution
+## 10. Animated Gradient (`WebGL2`)
+
+High-performance GPU shader gradient backgrounds featuring trigonometric domain warping, multi-iteration swirl distortion, procedural shapes (`Checks`, `Stripes`, `Edge`), automatic light/dark mode adaptation, and optional noise grain texture overlays.
+
+```tsx
+import { AnimatedGradient } from 'solid-thinking-orbs';
+
+// Standard Preset Usage
+<div class="relative h-[400px] w-full flex items-center justify-center rounded-2xl overflow-hidden">
+  <div class="z-10 text-white font-bold text-4xl">Your Hero Content</div>
+  <AnimatedGradient config={{ preset: "Prism" }} />
+</div>
+
+// Deeply Customized Shader Physics
+<AnimatedGradient
+  config={{
+    preset: "custom",
+    color1: "#1a1a2e",
+    color2: "#16213e",
+    color3: "#0f3460",
+    rotation: 45,
+    speed: 30,
+    swirl: 60,
+    swirlIterations: 10,
+    distortion: 15,
+    softness: 80,
+    shape: "Checks",
+    shapeSize: 35,
+  }}
+  noise={{ opacity: 0.2, scale: 1 }}
+  radius="16px"
+/>
+```
+
+### Props (`AnimatedGradientProps`)
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `config` | `GradientConfig` | `{ preset: 'Prism' }` | Gradient configuration: choose one of 6 presets or provide custom shader physics. |
+| `noise` | `{ opacity: number; scale?: number }` | `undefined` | Optional noise grain texture overlay configuration. |
+| `radius` | `string` | `'0px'` | CSS border radius for the clipping container. |
+| `theme` | `'auto' \| 'dark' \| 'light'` | `'auto'` | Force dark or light mode palette, or auto-detect based on ancestor DOM / system. |
+| `class` | `string` | `undefined` | Additional CSS class names. |
+| `style` | `JSX.CSSProperties \| string` | `undefined` | Additional inline styles for the container. |
+
+### Presets Reference
+
+| Preset | Colors (Dark) | Colors (Light) | Shape | Key Traits |
+| :--- | :--- | :--- | :--- | :--- |
+| `Prism` | `#050505`, `#66B3FF`, `#FFFFFF` | `#FAFAFA`, `#66B3FF`, `#050505` | `Checks` | High-frequency glass prism refractions with deep cyan and white highlights. |
+| `Lava` | `#FF9F21`, `#FF0303`, `#000000` | `#FF9F21`, `#FF0303`, `#FAFAFA` | `Edge` | High-swirl incandescent magma edge gradients with intense red and gold glows. |
+| `Plasma` | `#B566FF`, `#000000`, `#000000` | `#B566FF`, `#FAFAFA`, `#FAFAFA` | `Checks` | Neon violet electric discharge waves over dark obsidian void. |
+| `Pulse` | `#66FF85`, `#000000`, `#000000` | `#66FF85`, `#FAFAFA`, `#FAFAFA` | `Checks` | High-distortion emerald bio-luminescent pulse grid. |
+| `Vortex` | `#000000`, `#FFFFFF`, `#000000` | `#FAFAFA`, `#000000`, `#FAFAFA` | `Stripes` | Maximum swirl monochrome event horizon stripes. |
+| `Mist` | `#050505`, `#FF66B8`, `#050505` | `#FAFAFA`, `#FF66B8`, `#FAFAFA` | `Edge` | Soft atmospheric magenta fog rolling along directional boundaries. |
+
+### Custom Config Options (`preset: "custom"`)
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `color1` | `string` | *Required* | First gradient color (hex, rgb, rgba, hsl, or hsla). |
+| `color2` | `string` | *Required* | Second gradient accent color. |
+| `color3` | `string` | *Required* | Third gradient highlight color. |
+| `rotation` | `number` | `0` | Coordinate plane rotation angle in degrees (`-180` to `180`). |
+| `proportion` | `number` | `35` | Color balance proportion (`0` to `100`). |
+| `scale` | `number` | `1` | Spatial frequency and zoom scale of the procedural noise. |
+| `speed` | `number` | `25` | Animation time scale speed multiplier (`0` to `100`). |
+| `distortion` | `number` | `12` | Domain warping noise distortion intensity (`0` to `100`). |
+| `swirl` | `number` | `80` | Swirl vector field vortex strength (`0` to `100`). |
+| `swirlIterations` | `number` | `10` | Number of trigonometric swirl iteration layers (`0` to `30`). |
+| `softness` | `number` | `100` | Edge transition blur and blend softness (`0` to `100`). |
+| `offset` | `number` | `0` | Initial time phase offset. |
+| `shape` | `'Checks' \| 'Stripes' \| 'Edge'` | `'Checks'` | Procedural generator pattern shape. |
+| `shapeSize` | `number` | `10` | Pattern grid scale and density (`0` to `100`). |
+
+---
+
+## 11. Theme Resolution
 
 All components support universal dark/light theme resolution:
 
@@ -467,7 +546,7 @@ All components support universal dark/light theme resolution:
 
 ---
 
-## 11. TypeScript Exports Reference
+## 12. TypeScript Exports Reference
 
 ```ts
 import type {
@@ -485,6 +564,17 @@ import type {
   BotAvatarShading,
   BotAvatarPreset,
   BotAvatarSquashEase,
+
+  // AnimatedGradient (WebGL2)
+  AnimatedGradientProps,
+  AnimatedGradientCustomConfig,
+  AnimatedGradientPresetConfig,
+  AnimatedGradientPresetName,
+  AnimatedGradientPatternShape,
+  AnimatedGradientPresetParams,
+  AnimatedGradientPresetColors,
+  AnimatedGradientNoiseConfig,
+  GradientConfig,
 
   // BorderBeam
   BorderBeamProps,
@@ -528,5 +618,6 @@ import type {
   TodoListProps,
 } from 'solid-thinking-orbs';
 ```
+
 
 

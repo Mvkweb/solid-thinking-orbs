@@ -243,8 +243,8 @@ import { BotAvatar } from 'solid-thinking-orbs';
 <BotAvatar type="cat" state="sleeping" size={64} />
 ```
 
-### 31 Body Shapes
-`clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `flame`, `gem`, `grim`.
+### 33 Body Shapes
+`clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `nixos`, `discord`, `flame`, `gem`, `grim`.
 
 ### Deep Configuration & Physics Tuning
 
@@ -254,6 +254,7 @@ Every bot avatar is deeply customizable with over 30 props for custom palettes, 
 <BotAvatar
   type="grim"
   color="#E0E7FF"               // Custom body color
+  color2="#7EBAE4"              // Secondary body color for dual-tone avatars (e.g. NixOS)
   ink="#1E1B4B"                 // Custom face ink (auto-contrasted by default)
   shading="plastic"             // "plastic" | "crisp" | "smooth" | "flat"
   light={315}                   // Light angle in degrees (0–360)
@@ -272,6 +273,44 @@ Every bot avatar is deeply customizable with over 30 props for custom palettes, 
 ```
 
 See [DOCS.md](DOCS.md#9-bot-avatars) for the full 32-prop API reference table.
+
+---
+
+## 10. Animated Gradient (`WebGL2`)
+
+High-performance GPU shader gradient backgrounds with trigonometric domain warping, multi-iteration swirl distortions, procedural pattern shapes, and optional noise grain texture overlays.
+
+```tsx
+import { AnimatedGradient } from 'solid-thinking-orbs';
+
+// Preset background (Prism, Lava, Plasma, Pulse, Vortex, Mist)
+<div class="relative h-[400px] w-full flex items-center justify-center rounded-2xl overflow-hidden">
+  <div class="z-10 text-white font-bold text-4xl">Your Hero Content</div>
+  <AnimatedGradient config={{ preset: "Prism" }} />
+</div>
+
+// Deeply customized shader physics
+<AnimatedGradient
+  config={{
+    preset: "custom",
+    color1: "#1a1a2e",
+    color2: "#16213e",
+    color3: "#0f3460",
+    rotation: 45,
+    speed: 30,
+    swirl: 60,
+    swirlIterations: 10,
+    distortion: 15,
+    softness: 80,
+    shape: "Checks",
+    shapeSize: 35,
+  }}
+  noise={{ opacity: 0.2, scale: 1 }}
+  radius="16px"
+/>
+```
+
+See [DOCS.md](DOCS.md#10-animated-gradient) for the full props and custom parameters table.
 
 ---
 

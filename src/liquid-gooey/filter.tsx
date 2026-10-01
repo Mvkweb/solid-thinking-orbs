@@ -1,7 +1,7 @@
 import type { JSX } from 'solid-js';
 import type { ShadowLayer } from './shadow';
 
-const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -29.5';
+const BINARIZE = '1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11.5';
 
 function InsetPass(i: number, s: ShadowLayer): JSX.Element[] {
   const parts: JSX.Element[] = [];
@@ -13,6 +13,11 @@ function InsetPass(i: number, s: ShadowLayer): JSX.Element[] {
         in={src}
         operator={s.spread > 0 ? 'erode' : 'dilate'}
         radius={Math.abs(s.spread)}
+        result={`s${i}-er-raw`}
+      />,
+      <feGaussianBlur
+        in={`s${i}-er-raw`}
+        stdDeviation="0.4"
         result={`s${i}-er`}
       />
     );
@@ -58,6 +63,11 @@ function ShadowPass(i: number, s: ShadowLayer): JSX.Element[] {
         in="bin"
         operator={s.spread > 0 ? 'dilate' : 'erode'}
         radius={Math.abs(s.spread)}
+        result={`s${i}-sp-raw`}
+      />,
+      <feGaussianBlur
+        in={`s${i}-sp-raw`}
+        stdDeviation="0.4"
         result={`s${i}-sp`}
       />
     );
@@ -110,9 +120,14 @@ export function GooFilterPrimitives(props: {
       in="blur"
       type="matrix"
       values={`1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${props.contrast} ${intercept}`}
-      result="goo"
+      result="goo-raw"
     />,
-    <feComposite in="SourceGraphic" in2="goo" operator="atop" result="shape" />,
+    <feGaussianBlur in="goo-raw" stdDeviation="0.4" result="goo" />,
+    <feComposite in="SourceGraphic" in2="goo" operator="atop" result="shape-atop" />,
+    <feMerge result="shape">
+      <feMergeNode in="shape-atop" />
+      <feMergeNode in="SourceGraphic" />
+    </feMerge>,
   ];
 
   if (hasBin) {

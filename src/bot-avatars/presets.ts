@@ -33,6 +33,8 @@ export const botAvatarPresets: Record<BotAvatarType, BotAvatarPreset> = {
   arch: { label: 'Arch', color: '#1793D1', face: 'eyes', faceX: 50, faceY: 41, faceScale: 0.68 },
   apple: { label: 'Apple', color: '#F5F5F7', face: 'eyes', faceX: 47, faceY: 58, faceScale: 0.82 },
   kite: { label: 'Kite', color: '#FF4757', face: 'eyes', faceX: 50, faceY: 42, faceScale: 0.90 },
+  nixos: { label: 'NixOS', color: '#5277C3', color2: '#7EBAE4', face: 'eyes', faceX: 50, faceY: 50, faceScale: 0.70 },
+  discord: { label: 'Discord', color: '#5865F2', ink: '#FFFFFF', face: 'eyes', faceX: 50, faceY: 52, faceScale: 1.02 },
   flame: { label: 'Flame', color: '#FF6B00', face: 'eyes', faceX: 50, faceY: 60, faceScale: 0.95 },
   gem: { label: 'Gem', color: '#00E5FF', face: 'eyes', faceX: 50, faceY: 48, faceScale: 0.95 },
   grim: { label: 'Grim', color: '#F4F6FB', face: 'eyes', faceX: 50, faceY: 48, faceScale: 0.95 },

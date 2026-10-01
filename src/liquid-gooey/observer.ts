@@ -407,7 +407,12 @@ export class ObserveEngine {
     this.items.add(item);
     this.refreshMelt(item);
     if (t.dynamics?.move) {
-      const tail = svg('circle', { cx: '0', cy: '0', r: '0' });
+      const tail = svg('circle', {
+        cx: '0',
+        cy: '0',
+        r: '0',
+        'shape-rendering': 'geometricPrecision',
+      });
       t.blob.parentNode?.insertBefore(tail, t.blob);
       item.tailEl = tail;
     }

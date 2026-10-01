@@ -15,6 +15,7 @@ import { TodoListShowcase } from './components/TodoListShowcase';
 import { ActivityHeatmapShowcase } from './components/ActivityHeatmapShowcase';
 import { GooeyShowcase } from './components/GooeyShowcase';
 import { BotAvatarsShowcase } from './components/BotAvatarsShowcase';
+import { AnimatedGradientShowcase } from './components/AnimatedGradientShowcase';
 
 const USAGE_SNIPPET = `import { ThinkingOrb } from 'solid-thinking-orbs';\n\n<ThinkingOrb state="listening" size={64} />`;
 
@@ -97,6 +98,11 @@ export function App() {
         <Match when={activeTab() === 'gooey'}>
           <Installation />
           <GooeyShowcase />
+        </Match>
+
+        <Match when={activeTab() === 'gradient'}>
+          <Installation />
+          <AnimatedGradientShowcase />
         </Match>
       </Switch>
 

@@ -47,6 +47,7 @@ export function BotAvatar(props: BotAvatarProps) {
     'state',
     'size',
     'color',
+    'color2',
     'ink',
     'brightness',
     'saturation',
@@ -104,6 +105,7 @@ export function BotAvatar(props: BotAvatarProps) {
   const theme = () => local.theme ?? 'auto';
 
   const picked = () => local.color ?? preset().color;
+  const picked2 = () => local.color2 ?? preset().color2;
   const brightness = () => local.brightness ?? 1;
   const saturation = () => local.saturation ?? 1.5;
 
@@ -119,7 +121,20 @@ export function BotAvatar(props: BotAvatarProps) {
     );
   });
 
-  const inkColor = createMemo(() => local.ink ?? autoInk(body()));
+  const body2 = createMemo(() => {
+    const p = picked2();
+    if (!p) return undefined;
+    const b = brightness();
+    const s = saturation();
+    if (b === 1 && s === 1) return p;
+    return shade(
+      p,
+      (Math.min(2, Math.max(0, b)) - 1) * 0.35,
+      (Math.min(2, Math.max(0, s)) - 1) * 0.5
+    );
+  });
+
+  const inkColor = createMemo(() => local.ink ?? preset().ink ?? autoInk(body()));
   const seedValue = createMemo(() =>
     Math.min(1, Math.max(0, local.seed ?? hashSeed(autoId)))
   );
@@ -173,6 +188,7 @@ export function BotAvatar(props: BotAvatarProps) {
       faceY: p.faceY,
       faceScale: p.faceScale,
       color: body(),
+      color2: body2(),
       ink: inkColor(),
       shading: shadingMode(),
       shadow: clamp(local.shadow ?? 0.35, 0, 2),

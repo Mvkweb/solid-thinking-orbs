@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js';
 
-/** The thirty-one body shapes. */
+/** The thirty-three body shapes. */
 export type BotAvatarType =
   | 'clover'
   | 'flower'
@@ -30,6 +30,8 @@ export type BotAvatarType =
   | 'arch'
   | 'apple'
   | 'kite'
+  | 'nixos'
+  | 'discord'
   | 'flame'
   | 'gem'
   | 'grim';
@@ -60,6 +62,10 @@ export interface BotAvatarPreset {
   label: string;
   /** The type's own body colour. */
   color: string;
+  /** Secondary accent colour for dual-tone avatars (e.g. NixOS). */
+  color2?: string;
+  /** Preset ink colour for eyes/mouth (falls back to auto-contrast). */
+  ink?: string;
   /** The face the type ships with. */
   face: BotAvatarFace;
   /** Where the face sits, in the 100×100 body box. */
@@ -81,6 +87,8 @@ export interface BotAvatarProps
   size?: number | string;
   /** Body colour. Defaults to the type's palette colour. */
   color?: string;
+  /** Secondary body colour for dual-tone avatars (e.g. NixOS). */
+  color2?: string;
   /** Face ink. Defaults to dark, or light on a dark body. */
   ink?: string;
   /**

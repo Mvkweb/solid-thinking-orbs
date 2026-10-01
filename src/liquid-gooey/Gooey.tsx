@@ -119,6 +119,7 @@ export function GooeyRoot(props: GooeyProps) {
         aria-hidden="true"
         focusable="false"
         data-gooey-svg=""
+        shape-rendering="geometricPrecision"
         style={{
           position: 'absolute',
           inset: '0',
@@ -129,6 +130,7 @@ export function GooeyRoot(props: GooeyProps) {
           'z-index': '-1',
           filter: cssShadowFilter(),
           'will-change': 'filter, transform',
+          transform: 'translateZ(0)',
         }}
       >
         <defs>
@@ -152,7 +154,12 @@ export function GooeyRoot(props: GooeyProps) {
           id={`${filterId}-sil`}
           ref={setPortal}
           filter={`url(#${filterId})`}
-          style={{ fill: fill() }}
+          shape-rendering="geometricPrecision"
+          style={{
+            fill: fill(),
+            'transform-style': 'preserve-3d',
+            'backface-visibility': 'hidden',
+          }}
         />
       </svg>
 

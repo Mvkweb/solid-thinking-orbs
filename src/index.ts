@@ -114,8 +114,24 @@ export type {
   BotAvatarDrawConfig,
 } from './bot-avatars';
 
-
-
-
-
-
+// Animated Gradient Background Component (WebGL2)
+export {
+  AnimatedGradient,
+  animatedGradientPresets,
+  presetNames as animatedGradientPresetNames,
+  patternShapes as animatedGradientPatternShapes,
+  PatternShapes as AnimatedGradientPatternShapes,
+  hexToRgba as animatedGradientHexToRgba,
+  hslToRgb as animatedGradientHslToRgb,
+} from './animated-gradient';
+export type {
+  AnimatedGradientProps,
+  GradientConfig,
+  CustomConfig as AnimatedGradientCustomConfig,
+  PresetConfig as AnimatedGradientPresetConfig,
+  PresetName as AnimatedGradientPresetName,
+  PatternShape as AnimatedGradientPatternShape,
+  PresetParams as AnimatedGradientPresetParams,
+  PresetColors as AnimatedGradientPresetColors,
+  NoiseConfig as AnimatedGradientNoiseConfig,
+} from './animated-gradient';

@@ -160,6 +160,7 @@ function MirroredItem(props: Internal) {
       rect.setAttribute('width', String(b.w));
       rect.setAttribute('height', String(b.h));
       rect.setAttribute('rx', String(rx));
+      rect.setAttribute('shape-rendering', 'geometricPrecision');
       rect.style.transformBox = 'fill-box';
       rect.style.transformOrigin = 'center';
       rect.style.willChange = 'transform';
@@ -168,6 +169,7 @@ function MirroredItem(props: Internal) {
     } else {
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
       path.setAttribute('d', roundedRectPath(b.x, b.y, b.w, b.h, b.r));
+      path.setAttribute('shape-rendering', 'geometricPrecision');
       path.style.transformBox = 'fill-box';
       path.style.transformOrigin = 'center';
       path.style.willChange = 'transform';
@@ -265,6 +267,7 @@ function ObservedItem(props: Internal) {
     blob.setAttribute('y', '0');
     blob.setAttribute('width', '0');
     blob.setAttribute('height', '0');
+    blob.setAttribute('shape-rendering', 'geometricPrecision');
     blob.style.willChange = 'transform';
     blob.style.transformBox = 'fill-box';
     blob.style.transformOrigin = 'center';
