@@ -16,8 +16,9 @@ Comprehensive API and integration reference for `solid-thinking-orbs`.
 8. [Web Search (`<WebSearch>`)](#7-web-search)
 9. [To-do List (`<TodoList>`)](#8-to-do-list)
 10. [Bot Avatars (`<BotAvatar>`)](#9-bot-avatars)
-11. [Theme Resolution](#10-theme-resolution)
-12. [TypeScript Exports Reference](#11-typescript-exports-reference)
+11. [Animated Gradient (`<AnimatedGradient>`)](#10-animated-gradient-webgl2)
+12. [Theme Resolution](#11-theme-resolution)
+13. [TypeScript Exports Reference](#12-typescript-exports-reference)
 
 ---
 

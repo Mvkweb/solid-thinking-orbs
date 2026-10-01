@@ -310,7 +310,7 @@ import { AnimatedGradient } from 'solid-thinking-orbs';
 />
 ```
 
-See [DOCS.md](DOCS.md#10-animated-gradient) for the full props and custom parameters table.
+See [DOCS.md](DOCS.md#10-animated-gradient-webgl2) for the full props and custom parameters table.
 
 ---
 
