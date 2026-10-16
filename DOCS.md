@@ -398,7 +398,7 @@ import { BotAvatar } from 'solid-thinking-orbs';
 #### Core & Appearance
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
-| `type` | `BotAvatarType` | `'clover'` | Body shape (33 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `nixos`, `discord`, `flame`, `gem`, `grim`). |
+| `type` | `BotAvatarType` | `'clover'` | Body shape (34 shapes: `clover`, `flower`, `triangle`, `square`, `blob`, `ghost`, `circle`, `drop`, `star`, `droid`, `mech`, `alien`, `hexagon`, `cat`, `cloud`, `pill`, `pebble`, `puddle`, `heart`, `jelly`, `shroom`, `grok`, `daemon`, `cubic`, `artix`, `arch`, `apple`, `kite`, `nixos`, `discord`, `flame`, `gem`, `grim`, `bocchi`). |
 | `size` | `number \| string` | `64` | Rendered size in px or any CSS length string (e.g. `'100%'`, `'8rem'`). |
 | `color` | `string` | *Per-type palette* | Custom body color override (HEX, RGB, or HSL). |
 | `color2` | `string` | *Per-type palette* | Secondary accent color override for dual-tone avatars (e.g. NixOS). |

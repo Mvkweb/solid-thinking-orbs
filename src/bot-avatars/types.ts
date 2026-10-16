@@ -1,6 +1,6 @@
 import type { JSX } from 'solid-js';
 
-/** The thirty-three body shapes. */
+/** The thirty-four body shapes. */
 export type BotAvatarType =
   | 'clover'
   | 'flower'
@@ -34,7 +34,8 @@ export type BotAvatarType =
   | 'discord'
   | 'flame'
   | 'gem'
-  | 'grim';
+  | 'grim'
+  | 'bocchi';
 
 /**
  * What the face is made of. The eyes alone by default; `mouth` adds a

@@ -10,7 +10,7 @@ import {
 } from 'solid-js';
 import type { BotAvatarProps, BotAvatarShading, BotAvatarState } from './types';
 import { botAvatarPresets, stateLabels } from './presets';
-import { SHAPE_PATHS, SHAPE_PARTS } from './shapes';
+import { SHAPE_PATHS, SHAPE_PARTS, SHAPE_ATTACHMENTS } from './shapes';
 import { autoInk, shade } from './color';
 import { Sim, restPose } from './engine';
 import { draw, OVERSCAN, RISE, type DrawConfig } from './draw';
@@ -161,6 +161,23 @@ export function BotAvatar(props: BotAvatarProps) {
       : undefined
   );
 
+  const attachments = createMemo(() => {
+    const t = type();
+    const atts = SHAPE_ATTACHMENTS[t];
+    if (!atts || typeof Path2D === 'undefined') return undefined;
+    const c2 = body2();
+    return atts.map((a, i) => {
+      // Allow color2 to override the secondary accent (e.g. blue cube) if provided
+      const color = i === 1 && c2 ? c2 : a.color;
+      return {
+        path: bodyPath(a.d),
+        color,
+        stroke: a.stroke,
+        strokeWidth: a.strokeWidth,
+      };
+    });
+  });
+
   let sim: Sim | null = null;
   let cssSize = 0;
 
@@ -207,6 +224,7 @@ export function BotAvatar(props: BotAvatarProps) {
         tilt: clamp(local.whirlTilt ?? 1, 0.5, 1.8),
       },
       parts: parts(),
+      attachments: attachments(),
       theme: resolveTheme(canvasRef),
     };
   };

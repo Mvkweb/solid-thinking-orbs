@@ -77,6 +77,7 @@ export {
   botAvatarStates,
   botAvatarShapes,
   botAvatarParts,
+  botAvatarAttachments,
   autoInk,
   luminance,
   parseColor,
@@ -112,6 +113,8 @@ export type {
   BotAvatarJumpConfig,
   BotAvatarPose,
   BotAvatarDrawConfig,
+  BotAvatarAttachment,
+  ShapeAttachment,
 } from './bot-avatars';
 
 // Animated Gradient Background Component (WebGL2)

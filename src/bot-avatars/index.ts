@@ -8,7 +8,12 @@ export {
   botAvatarFaces,
   botAvatarStates,
 } from './presets';
-export { SHAPE_PATHS as botAvatarShapes, SHAPE_PARTS as botAvatarParts } from './shapes';
+export {
+  SHAPE_PATHS as botAvatarShapes,
+  SHAPE_PARTS as botAvatarParts,
+  SHAPE_ATTACHMENTS as botAvatarAttachments,
+  type ShapeAttachment,
+} from './shapes';
 export { autoInk, luminance, parseColor, shade } from './color';
 export { Sim as BotAvatarSim, restPose } from './engine';
 export { draw as drawBotAvatarFrame, OVERSCAN as BOT_AVATAR_OVERSCAN, RISE as BOT_AVATAR_RISE } from './draw';
@@ -31,7 +36,7 @@ export type {
 } from './plastic';
 export { JUMP_DEFAULTS as botAvatarJumpDefaults } from './engine';
 export type { JumpConfig as BotAvatarJumpConfig, Pose as BotAvatarPose } from './engine';
-export type { DrawConfig as BotAvatarDrawConfig } from './draw';
+export type { DrawConfig as BotAvatarDrawConfig, DrawnAttachment as BotAvatarAttachment } from './draw';
 
 export type {
   BotAvatarProps,

@@ -10,6 +10,13 @@ import type { BotAvatarFace, BotAvatarShading } from './types';
 import { shade } from './color';
 import { drawPlasticCap, mulAffine } from './plastic';
 
+export interface DrawnAttachment {
+  path: Path2D;
+  color: string;
+  stroke?: string;
+  strokeWidth?: number;
+}
+
 export interface DrawConfig {
   path: Path2D;
   face: BotAvatarFace;
@@ -36,6 +43,8 @@ export interface DrawConfig {
   /** thin parts (antennae) drawn behind the body with `partsDepth` of its depth */
   parts?: Path2D;
   partsDepth?: number;
+  /** decorative attachments (e.g. hair cubes) drawn with the front cap transform */
+  attachments?: DrawnAttachment[];
   /** the resolved surface: the whirl is white on dark, black on light */
   theme?: 'dark' | 'light';
   /** the device pixel ratio the context is scaled by: with it given the
@@ -376,12 +385,47 @@ export function draw(ctx: CanvasRenderingContext2D, box: number, pose: Pose, cfg
   /* the far half of the whirl sits behind everything */
   drawWhirl(ctx, pose, cfg.color, lx, ly, false, cfg.whirl);
 
+  const drawAttachments = () => {
+    if (!cfg.attachments || cfg.attachments.length === 0) return;
+    const zf = facing >= 0 ? 1 : -1;
+    const sf = profile(zf, cap);
+    const m0 = cy * sf, m1 = sy * sp * sf, m3 = cp * sf;
+    const e = zf * sy * halfDepth - 50 * m0;
+    const fo = -zf * cy * sp * halfDepth - 50 * m1 - 50 * m3;
+    const [ca, cb, cc, cd, ce, cf] = body;
+    ctx.save();
+    ctx.setTransform(ca * m0 + cc * m1, cb * m0 + cd * m1, cc * m3, cd * m3, ca * e + cc * fo + ce, cb * e + cd * fo + cf);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    for (const att of cfg.attachments) {
+      ctx.save();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.22)';
+      ctx.shadowBlur = 1.5;
+      ctx.shadowOffsetY = 0.8;
+      ctx.fillStyle = att.color;
+      ctx.fill(att.path);
+      ctx.restore();
+      if (att.stroke) {
+        ctx.strokeStyle = att.stroke;
+        ctx.lineWidth = att.strokeWidth ?? 0.7;
+        ctx.stroke(att.path);
+      }
+    }
+    ctx.restore();
+  };
+
+  /* attachments behind the body when facing away */
+  if (facing < -0.2) drawAttachments();
+
   if (cfg.parts) {
     const partsPal = cfg.color2 ? palette(cfg.color2, shadow, highlight) : pal;
     const partsHalf = cfg.color2 ? halfDepth : halfDepth * (cfg.partsDepth ?? 0.4);
     drawSolid(cfg.parts, `${cfg.typeKey ?? 'custom'}:parts`, partsHalf, partsPal);
   }
   const plasticDone = drawSolid(cfg.path, cfg.typeKey ?? 'custom', halfDepth);
+
+  /* attachments in front of the body when facing forward */
+  if (facing >= -0.2) drawAttachments();
 
   /* the face: each feature sits on a sphere behind the front cap, so a
      turn slides it round the head — the eye moving toward the edge

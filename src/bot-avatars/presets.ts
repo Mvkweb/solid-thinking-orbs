@@ -38,6 +38,7 @@ export const botAvatarPresets: Record<BotAvatarType, BotAvatarPreset> = {
   flame: { label: 'Flame', color: '#FF6B00', face: 'eyes', faceX: 50, faceY: 60, faceScale: 0.95 },
   gem: { label: 'Gem', color: '#00E5FF', face: 'eyes', faceX: 50, faceY: 48, faceScale: 0.95 },
   grim: { label: 'Grim', color: '#F4F6FB', face: 'eyes', faceX: 50, faceY: 48, faceScale: 0.95 },
+  bocchi: { label: 'Bocchi', color: '#F7B2CB', color2: '#7BA0FF', face: 'eyes', faceX: 52, faceY: 52, faceScale: 0.95 },
 };
 
 export const botAvatarTypes = Object.keys(botAvatarPresets) as BotAvatarType[];
